@@ -69,42 +69,119 @@
       <section class="section reveal delay-2" id="projects">
         <h2>Selected Projects</h2>
         <div class="grid projects">
-          <article class="card">
+          <article class="card project-card">
+            <h3>Student Flow Visualization Tool</h3>
+            <span class="tag-row">
+              <span class="tag">Database Design</span>
+              <span class="tag">Azure</span>
+              <span class="tag">SQL</span>
+            </span>
+            <button class="button secondary project-open" type="button" data-modal-target="project-modal-student-flow">
+              View details
+            </button>
+          </article>
+          <article class="card project-card">
             <h3>CFC AI Support Assistant</h3>
-            <p>
-              An AI chatbot leveraging Retrieval-Augmented Generation to answer customer questions 
-              based on CFC Technologies' internal help documentation, improving the overall customer
-              support experience.
+            <span class="tag-row">
+              <span class="tag">AI</span>
+              <span class="tag">Python</span>
+              <span class="tag">RAG</span>
+              <span class="tag">NLP</span>
+            </span>
+            <button class="button secondary project-open" type="button" data-modal-target="project-modal-cfc-ai">
+              View details
+            </button>
+          </article>
+          <article class="card project-card">
+            <h3>DEADFRONT Game</h3>
+            <span class="tag-row">
+              <span class="tag">Unity</span>
+              <span class="tag">C#</span>
+              <span class="tag">OOP</span>
+              <span class="tag">3D Environment</span>
+            </span>
+            <button class="button secondary project-open" type="button" data-modal-target="project-modal-deadfront">
+              View details
+            </button>
+          </article>
+        </div>
+
+        <dialog class="project-modal" id="project-modal-student-flow" aria-labelledby="project-modal-student-flow-title">
+          <div class="project-modal-inner">
+            <div class="project-modal-head">
+              <p class="project-modal-label">Project Details</p>
+              <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+            </div>
+            <h3 id="project-modal-student-flow-title">Student Flow Visualization Tool</h3>
+            <p class="project-modal-date">Spring 2026</p>
+            <div class="tag-row">
+              <span class="tag">Database Design</span>
+              <span class="tag">Azure</span>
+              <span class="tag">SQL</span>
+            </div>
+            <p class="project-modal-description">
+              A data visualization system for analyzing and modeling student enrollment, transfer, and
+              graduation pathways at MNSU. It aggregates multi-source institutional data, designs a scalable
+              relational model, and builds structured pipelines for Sankey visualizations that show how
+              students move through and beyond the university. The system helps administrators understand
+              student origins, academic progression, transfer behavior, and degree outcomes through clean,
+              queryable, and well-structured data.
             </p>
+            <div class="project-actions">
+              <a class="button secondary project-button" href="https://github.com/MNSU-Visualization-Project-Team/MNSU-Sankey-Visualization-Tool" target="_blank" rel="noopener">Visit the GitHub repo</a>
+            </div>
+          </div>
+        </dialog>
+
+        <dialog class="project-modal" id="project-modal-cfc-ai" aria-labelledby="project-modal-cfc-ai-title">
+          <div class="project-modal-inner">
+            <div class="project-modal-head">
+              <p class="project-modal-label">Project Details</p>
+              <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+            </div>
+            <h3 id="project-modal-cfc-ai-title">CFC AI Support Assistant</h3>
+            <p class="project-modal-date">Fall 2025</p>
             <div class="tag-row">
               <span class="tag">AI</span>
               <span class="tag">Python</span>
               <span class="tag">RAG</span>
               <span class="tag">NLP</span>
             </div>
+            <p class="project-modal-description">
+              An AI chatbot leveraging Retrieval-Augmented Generation to answer customer questions based on
+              CFC Technologies' internal help documentation, improving the overall customer support experience.
+            </p>
             <div class="project-actions">
               <a class="button secondary project-button" href="https://youtu.be/vnwzOvCkCeY" target="_blank" rel="noopener">Watch a quick demo</a>
               <a class="button secondary project-button" href="https://github.com/Kaleab84/Chat-Talk" target="_blank" rel="noopener">Visit the GitHub repo</a>
             </div>
-          </article>
-          <article class="card">
-            <h3>DEADFRONT Game</h3>
-            <p>
-              A 3D FPS zombie wave survival game built in Unity using C#. Main features include full weapon
-              systems, player health systems, enemy AI, and wave progression. Additional interface elements
-              include a HUD, status displays (like ammo/health), and feedback such as audio & visual cues.
-            </p>
+          </div>
+        </dialog>
+
+        <dialog class="project-modal" id="project-modal-deadfront" aria-labelledby="project-modal-deadfront-title">
+          <div class="project-modal-inner">
+            <div class="project-modal-head">
+              <p class="project-modal-label">Project Details</p>
+              <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+            </div>
+            <h3 id="project-modal-deadfront-title">DEADFRONT Game</h3>
+            <p class="project-modal-date">Fall 2024</p>
             <div class="tag-row">
               <span class="tag">Unity</span>
               <span class="tag">C#</span>
               <span class="tag">OOP</span>
               <span class="tag">3D Environment</span>
             </div>
+            <p class="project-modal-description">
+              A 3D FPS zombie wave survival game built in Unity using C#. Main features include full weapon
+              systems, player health systems, enemy AI, and wave progression. Additional interface elements
+              include a HUD, status displays (like ammo/health), and feedback such as audio and visual cues.
+            </p>
             <div class="project-actions">
               <a class="button secondary project-button" href="https://youtu.be/xAcbX7r1f_s" target="_blank" rel="noopener">Watch the game trailer</a>
             </div>
-          </article>
-        </div>
+          </div>
+        </dialog>
       </section>
 
       <section class="section reveal delay-3" id="skills">
@@ -144,5 +221,144 @@
         <span>Last updated Feb 18, 2026.</span>
       </footer>
     </div>
+    <script>
+      (() => {
+        const OPEN_ANIMATION_MS = 240;
+        const CLOSE_ANIMATION_MS = 170;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const typingTimers = new WeakMap();
+
+        const stopTyping = (element) => {
+          const timerId = typingTimers.get(element);
+
+          if (timerId) {
+            window.clearTimeout(timerId);
+            typingTimers.delete(element);
+          }
+        };
+
+        const typeDescription = (element) => {
+          const fullText = element.dataset.fullText || "";
+          stopTyping(element);
+
+          if (prefersReducedMotion.matches) {
+            element.textContent = fullText;
+            return;
+          }
+
+          let index = 0;
+          element.textContent = "";
+
+          const tick = () => {
+            if (index >= fullText.length) {
+              typingTimers.delete(element);
+              return;
+            }
+
+            element.textContent += fullText.charAt(index);
+            index += 1;
+
+            const previousChar = fullText.charAt(index - 1);
+            const nextDelay = /[.,!?]/.test(previousChar) ? 14 : 5;
+            const timerId = window.setTimeout(tick, nextDelay);
+            typingTimers.set(element, timerId);
+          };
+
+          tick();
+        };
+
+        const prepareDescriptions = () => {
+          document.querySelectorAll(".project-modal-description").forEach((description) => {
+            if (!description.dataset.fullText) {
+              description.dataset.fullText = description.textContent.replace(/\s+/g, " ").trim();
+              description.textContent = description.dataset.fullText;
+            }
+          });
+        };
+
+        const closeDialog = (dialog) => {
+          if (!dialog || !dialog.open) {
+            return;
+          }
+
+          dialog.querySelectorAll(".project-modal-description").forEach((description) => {
+            stopTyping(description);
+            description.textContent = description.dataset.fullText || description.textContent;
+          });
+
+          if (prefersReducedMotion.matches) {
+            dialog.classList.remove("is-opening", "is-closing");
+            dialog.close();
+            return;
+          }
+
+          dialog.classList.remove("is-opening");
+          dialog.classList.add("is-closing");
+
+          window.setTimeout(() => {
+            if (dialog.open) {
+              dialog.close();
+            }
+            dialog.classList.remove("is-closing");
+          }, CLOSE_ANIMATION_MS);
+        };
+
+        const openDialog = (dialog) => {
+          if (!dialog || dialog.open || typeof dialog.showModal !== "function") {
+            return;
+          }
+
+          dialog.classList.remove("is-closing");
+          dialog.showModal();
+
+          if (!prefersReducedMotion.matches) {
+            dialog.classList.add("is-opening");
+            window.setTimeout(() => dialog.classList.remove("is-opening"), OPEN_ANIMATION_MS);
+          }
+
+          dialog.querySelectorAll(".project-modal-description").forEach(typeDescription);
+        };
+
+        const openButtons = document.querySelectorAll("[data-modal-target]");
+
+        openButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const modalId = button.getAttribute("data-modal-target");
+            const dialog = document.getElementById(modalId);
+            openDialog(dialog);
+          });
+        });
+
+        const dialogs = document.querySelectorAll(".project-modal");
+
+        dialogs.forEach((dialog) => {
+          dialog.addEventListener("click", (event) => {
+            const rect = dialog.getBoundingClientRect();
+            const clickedInside =
+              event.clientX >= rect.left &&
+              event.clientX <= rect.right &&
+              event.clientY >= rect.top &&
+              event.clientY <= rect.bottom;
+
+            if (!clickedInside) {
+              closeDialog(dialog);
+            }
+          });
+
+          dialog.addEventListener("cancel", (event) => {
+            event.preventDefault();
+            closeDialog(dialog);
+          });
+
+          const closeButtons = dialog.querySelectorAll("[data-close-modal]");
+
+          closeButtons.forEach((closeButton) => {
+            closeButton.addEventListener("click", () => closeDialog(dialog));
+          });
+        });
+
+        prepareDescriptions();
+      })();
+    </script>
   </body>
 </html>

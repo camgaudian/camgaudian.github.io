@@ -237,6 +237,29 @@
           }
         };
 
+        const reserveDescriptionHeight = (element) => {
+          const fullText = element.dataset.fullText || "";
+          stopTyping(element);
+
+          if (!fullText) {
+            element.style.minHeight = "0px";
+            return;
+          }
+
+          const previousText = element.textContent;
+          const previousVisibility = element.style.visibility;
+
+          element.style.minHeight = "0px";
+          element.style.visibility = "hidden";
+          element.textContent = fullText;
+
+          const reservedHeight = Math.ceil(element.getBoundingClientRect().height);
+          element.style.minHeight = `${reservedHeight}px`;
+
+          element.textContent = previousText;
+          element.style.visibility = previousVisibility;
+        };
+
         const typeDescription = (element) => {
           const fullText = element.dataset.fullText || "";
           stopTyping(element);
@@ -316,7 +339,14 @@
             window.setTimeout(() => dialog.classList.remove("is-opening"), OPEN_ANIMATION_MS);
           }
 
-          dialog.querySelectorAll(".project-modal-description").forEach(typeDescription);
+          const descriptions = dialog.querySelectorAll(".project-modal-description");
+
+          window.requestAnimationFrame(() => {
+            descriptions.forEach((description) => {
+              reserveDescriptionHeight(description);
+              typeDescription(description);
+            });
+          });
         };
 
         const openButtons = document.querySelectorAll("[data-modal-target]");

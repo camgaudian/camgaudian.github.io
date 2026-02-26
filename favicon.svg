@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CG favicon option 3">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#0f1318"/>
+  <circle cx="32" cy="32" r="22" fill="#67d7c5"/>
+  <path d="M30.5 23H24.5A9 9 0 0 0 24.5 41H30.5" fill="none" stroke="#0f1318" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46.5 23H40.5A9 9 0 1 0 40.5 41H46.5V33.5H43" fill="none" stroke="#ff9f6e" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

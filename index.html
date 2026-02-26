@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -128,7 +128,7 @@
               queryable, and well-structured data.
             </p>
             <div class="project-actions">
-              <a class="button secondary project-button" href="https://github.com/MNSU-Visualization-Project-Team/MNSU-Sankey-Visualization-Tool" target="_blank" rel="noopener">Visit the GitHub repo</a>
+              <p class="project-modal-note">Public artifacts are currently unavailable for this project due to student data privacy requirements.</p>
             </div>
           </div>
         </dialog>
@@ -208,17 +208,40 @@
         <p class="hero-subtitle">
           Want to collaborate, or just say hi? Reach out and let's build something together.
         </p>
-        <div class="hero-actions">
+        <div class="hero-actions contact-actions">
           <a class="button primary" href="mailto:cam.lambertt@gmail.com">Email me</a>
           <a class="button primary" href="https://www.linkedin.com/in/cameron-gaudian-49499429a/">Connect on LinkedIn</a>
-          <a class="button primary" href="Resume021826.pdf" target="_blank" rel="noopener">View my resume</a>
+          <button class="button primary" type="button" data-modal-target="resume-modal">View my resume</button>
 
         </div>
       </section>
 
+      <dialog class="project-modal resume-modal" id="resume-modal" aria-labelledby="resume-modal-title">
+        <div class="project-modal-inner">
+          <div class="project-modal-head">
+            <p class="project-modal-label">Resume</p>
+            <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+          </div>
+          <h3 id="resume-modal-title">Cameron Gaudian Resume</h3>
+          <p class="project-modal-date">Previewing Resume021826.pdf</p>
+          <div class="resume-frame-wrap">
+            <iframe
+              class="resume-frame"
+              src="Resume021826.pdf#view=FitH"
+              title="Cameron Gaudian resume PDF preview"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="project-actions">
+            <a class="button secondary project-button" href="Resume021826.pdf" download>Download resume</a>
+            <a class="button secondary project-button" href="Resume021826.pdf" target="_blank" rel="noopener">Open in new tab</a>
+          </div>
+        </div>
+      </dialog>
+
       <footer class="footer">
         <span>Based in Mankato, MN.</span>
-        <span>Last updated Feb 18, 2026.</span>
+        <span>Last updated Feb 26, 2026.</span>
       </footer>
     </div>
     <script>

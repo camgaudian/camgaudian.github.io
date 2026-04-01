@@ -90,33 +90,86 @@
         z-index: 0;
       }
 
-      .hero-visual::after {
-        content: "";
+      .hero-stack {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 360px);
+        aspect-ratio: 4 / 5;
+        perspective: 1800px;
+      }
+
+      .hero-stack-card {
         position: absolute;
-        width: min(80%, 300px);
-        aspect-ratio: 1 / 1;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        padding: 0;
         border-radius: 30px;
-        background: linear-gradient(135deg, rgba(103, 215, 197, 0.28), rgba(255, 159, 110, 0.12));
-        border: 1px solid rgba(245, 241, 234, 0.16);
-        transform: translate(28px, -24px) rotate(8deg);
-        z-index: 0;
+        background: transparent;
+        color: inherit;
+        appearance: none;
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          transform 0.6s cubic-bezier(0.22, 0.9, 0.35, 1),
+          box-shadow 0.35s ease,
+          border-color 0.35s ease;
+      }
+
+      .hero-stack-card:focus-visible {
+        outline: 2px solid var(--accent-2);
+        outline-offset: 6px;
       }
 
       .hero-photo-frame {
-        position: relative;
-        z-index: 1;
-        width: min(100%, 340px);
-        aspect-ratio: 4 / 5;
-        border-radius: 30px;
         overflow: hidden;
+        padding: 0;
+        background: rgba(20, 24, 31, 0.8);
+        z-index: 2;
         box-shadow: 0 18px 58px rgba(0, 0, 0, 0.45);
-        transform: rotate(-0.5deg);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transform: translate(0, 0) rotate(0deg);
       }
 
-      .hero-photo-frame:hover {
-        transform: translateY(-2px) rotate(-0.5deg);
+      .hero-copy-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 28px;
+        background:
+          linear-gradient(155deg, rgba(255, 159, 110, 0.24), rgba(255, 159, 110, 0.04)),
+          linear-gradient(135deg, rgba(103, 215, 197, 0.18), rgba(103, 215, 197, 0)),
+          rgba(18, 23, 30, 0.96);
+        border: 1px solid rgba(245, 241, 234, 0.16);
+        z-index: 1;
+        box-shadow: 0 16px 46px rgba(0, 0, 0, 0.32);
+        transform: translate(38px, -26px) rotate(8deg) scale(0.9);
+      }
+
+      .hero-stack:hover .hero-photo-frame {
         box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-stack:not(.is-copy-front):hover .hero-photo-frame {
+        transform: translateY(-4px) rotate(0deg);
+      }
+
+      .hero-stack.is-copy-front .hero-photo-frame {
+        z-index: 1;
+        transform: translate(-18px, 18px) rotate(-8deg) scale(0.95);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+      }
+
+      .hero-stack.is-copy-front .hero-photo-cue {
+        opacity: 0.5;
+      }
+
+      .hero-stack.is-copy-front .hero-copy-card {
+        z-index: 2;
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.46);
       }
 
       .hero-photo {
@@ -125,6 +178,63 @@
         object-fit: cover;
         object-position: center 20%;
         display: block;
+      }
+
+      .hero-photo-cue {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 1;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 14px;
+        background: rgba(12, 16, 22, 0.28);
+        border: 1px solid rgba(245, 241, 234, 0.14);
+        backdrop-filter: blur(10px);
+        color: rgba(245, 241, 234, 0.68);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease,
+          background 0.25s ease;
+      }
+
+      .hero-photo-cue-icon {
+        width: 23px;
+        height: 23px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .hero-stack:hover .hero-photo-cue {
+        background: rgba(12, 16, 22, 0.38);
+        transform: translateY(-1px);
+      }
+
+      .hero-card-label {
+        color: var(--accent-2);
+        text-transform: uppercase;
+        letter-spacing: 1.1px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .hero-card-copy {
+        margin: 0;
+        font-family: "Fraunces", serif;
+        font-size: clamp(24px, 3vw, 32px);
+        line-height: 1.18;
+      }
+
+      .hero-card-hint {
+        color: var(--ink-muted);
+        font-size: 13px;
+        letter-spacing: 0.2px;
       }
 
       .hero-badge {
@@ -557,12 +667,23 @@
         }
 
         .hero-photo-frame {
-          max-width: 300px;
-          transform: none;
+          transform: translate(0, 0) rotate(0deg);
         }
 
-        .hero-photo-frame:hover {
-          transform: translateY(-2px);
+        .hero-copy-card {
+          padding: 24px;
+          transform: translate(22px, -18px) rotate(6deg) scale(0.92);
+        }
+
+        .hero-stack.is-copy-front .hero-photo-frame {
+          transform: translate(-10px, 12px) rotate(-6deg) scale(0.95);
+        }
+
+        .hero-photo-cue {
+          top: 14px;
+          right: 14px;
+          width: 32px;
+          height: 32px;
         }
 
         .hero-badge {

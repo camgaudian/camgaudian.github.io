@@ -31,27 +31,59 @@
 
       <section class="hero">
         <div class="hero-visual reveal delay-1">
-          <div class="hero-photo-frame">
-            <img
-              class="hero-photo"
-              src="cam_pic.jpg"
-              alt="Professional portrait of Cameron Gaudian"
-            />
+          <div class="hero-stack" data-card-stack>
+            <button
+              class="hero-stack-card hero-copy-card"
+              type="button"
+              aria-label="Swap the hero cards"
+              data-card-toggle
+            >
+              <span class="hero-card-label">Profile Snapshot</span>
+              <p class="hero-card-copy">
+                CS student focused on intuitive engineering, real-world workflows, and useful software projects.
+              </p>
+              <span class="hero-card-hint">Click or tap to rotate cards</span>
+            </button>
+            <button
+              class="hero-stack-card hero-photo-frame"
+              type="button"
+              aria-label="Swap the hero cards"
+              data-card-toggle
+            >
+              <span class="hero-photo-cue" aria-hidden="true">
+                <svg class="hero-photo-cue-icon" viewBox="0 0 24 24" focusable="false">
+                  <path
+                    d="M7.5 5.5 13 18l1.9-4.3 4.6-1.9L7.5 5.5Z"
+                  />
+                  <path
+                    d="M16.5 5.5v2.5"
+                  />
+                  <path
+                    d="M19 8h-2.5"
+                  />
+                  <path
+                    d="m17.8 6.2-1.7 1.7"
+                  />
+                </svg>
+              </span>
+              <img
+                class="hero-photo"
+                src="cam_pic.jpg"
+                alt="Professional portrait of Cameron Gaudian"
+              />
+            </button>
           </div>
         </div>
         <div class="hero-content reveal">
           <p class="hero-kicker">CS Portfolio</p>
           <h1 class="hero-title">Building practical software and sharpening core skills</h1>
-          <p class="hero-subtitle">
-            CS student focused on intuitive engineering, real-world workflows, and useful software projects.
-          </p>
           <div class="hero-actions">
             <a class="button primary" href="#projects">See the work</a>
             <a class="button secondary" href="mailto:cam.lambertt@gmail.com">Email me</a>
           </div>
           <div class="hero-focus">
             <h3>Now Exploring</h3>
-            <p>Python, Azure, SQL, and database design & management</p>
+            <p>Java, Azure, SQL, and database design & management</p>
           </div>
         </div>
       </section>
@@ -128,7 +160,7 @@
               queryable, and well-structured data.
             </p>
             <div class="project-actions">
-              <p class="project-modal-note">Public artifacts are currently unavailable for this project due to student data privacy requirements.</p>
+              <p class="project-modal-note">Public artifacts are unavailable for this project due to NDA restrictions.</p>
             </div>
           </div>
         </dialog>
@@ -189,7 +221,7 @@
         <div class="grid timeline">
           <div class="card">
             <h3>Languages</h3>
-            <p>Python & C# proficiency; currently learning SQL, HTML/CSS, JavaScript, and more.</p>
+            <p>Python & C# proficiency; have experience with SQL, HTML/CSS, JavaScript, and more.</p>
           </div>
           <div class="card">
             <h3>Tools</h3>
@@ -197,8 +229,8 @@
           </div>
           <div class="card">
             <h3>Core Concepts</h3>
-            <p>OS, algorithms, data structures, and more; currently studying machine learning 
-              & parallel computing.</p>
+            <p>OS, algorithms, data structures, and more; currently studying data mining 
+              & information security.</p>
           </div>
         </div>
       </section>
@@ -241,7 +273,7 @@
 
       <footer class="footer">
         <span>Based in Mankato, MN.</span>
-        <span>Last updated Feb 26, 2026.</span>
+        <span>Last updated Apr 1, 2026.</span>
       </footer>
     </div>
     <script>
@@ -250,6 +282,7 @@
         const CLOSE_ANIMATION_MS = 170;
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
         const typingTimers = new WeakMap();
+        const heroStacks = document.querySelectorAll("[data-card-stack]");
 
         const stopTyping = (element) => {
           const timerId = typingTimers.get(element);
@@ -322,6 +355,14 @@
           });
         };
 
+        const toggleHeroStack = (stack) => {
+          if (!stack) {
+            return;
+          }
+
+          stack.classList.toggle("is-copy-front");
+        };
+
         const closeDialog = (dialog) => {
           if (!dialog || !dialog.open) {
             return;
@@ -383,6 +424,12 @@
         });
 
         const dialogs = document.querySelectorAll(".project-modal");
+
+        heroStacks.forEach((stack) => {
+          stack.querySelectorAll("[data-card-toggle]").forEach((card) => {
+            card.addEventListener("click", () => toggleHeroStack(stack));
+          });
+        });
 
         dialogs.forEach((dialog) => {
           dialog.addEventListener("click", (event) => {

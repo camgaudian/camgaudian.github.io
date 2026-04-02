@@ -77,12 +77,13 @@
         position: relative;
         display: grid;
         place-items: center;
+        gap: 14px;
       }
 
       .hero-visual::before {
         content: "";
         position: absolute;
-        width: min(86%, 360px);
+        width: min(84%, 336px);
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         background: radial-gradient(circle, rgba(255, 159, 110, 0.24), rgba(255, 159, 110, 0));
@@ -93,7 +94,7 @@
       .hero-stack {
         position: relative;
         z-index: 1;
-        width: min(100%, 360px);
+        width: min(100%, 336px);
         aspect-ratio: 4 / 5;
         perspective: 1800px;
       }
@@ -135,8 +136,8 @@
       .hero-copy-card {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        gap: 18px;
+        justify-content: flex-start;
+        gap: 12px;
         padding: 28px;
         background:
           linear-gradient(155deg, rgba(255, 159, 110, 0.24), rgba(255, 159, 110, 0.04)),
@@ -145,7 +146,7 @@
         border: 1px solid rgba(245, 241, 234, 0.16);
         z-index: 1;
         box-shadow: 0 16px 46px rgba(0, 0, 0, 0.32);
-        transform: translate(38px, -26px) rotate(8deg) scale(0.9);
+        transform: translate(32px, -22px) rotate(8deg) scale(0.89);
       }
 
       .hero-stack:hover .hero-photo-frame {
@@ -158,12 +159,8 @@
 
       .hero-stack.is-copy-front .hero-photo-frame {
         z-index: 1;
-        transform: translate(-18px, 18px) rotate(-8deg) scale(0.95);
+        transform: translate(-16px, 16px) rotate(-8deg) scale(0.93);
         box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
-      }
-
-      .hero-stack.is-copy-front .hero-photo-cue {
-        opacity: 0.5;
       }
 
       .hero-stack.is-copy-front .hero-copy-card {
@@ -178,42 +175,6 @@
         object-fit: cover;
         object-position: center 20%;
         display: block;
-      }
-
-      .hero-photo-cue {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        z-index: 1;
-        display: grid;
-        place-items: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 14px;
-        background: rgba(12, 16, 22, 0.28);
-        border: 1px solid rgba(245, 241, 234, 0.14);
-        backdrop-filter: blur(10px);
-        color: rgba(245, 241, 234, 0.68);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
-        transition:
-          opacity 0.25s ease,
-          transform 0.25s ease,
-          background 0.25s ease;
-      }
-
-      .hero-photo-cue-icon {
-        width: 23px;
-        height: 23px;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 1.5;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .hero-stack:hover .hero-photo-cue {
-        background: rgba(12, 16, 22, 0.38);
-        transform: translateY(-1px);
       }
 
       .hero-card-label {
@@ -231,10 +192,21 @@
         line-height: 1.18;
       }
 
-      .hero-card-hint {
-        color: var(--ink-muted);
-        font-size: 13px;
-        letter-spacing: 0.2px;
+      .hero-card-actions {
+        margin-top: auto;
+        padding-top: 8px;
+      }
+
+      .hero-stack-hint {
+        position: relative;
+        z-index: 1;
+        margin: 9px 0 0;
+        padding: 0;
+        color: rgba(245, 241, 234, 0.35);
+        font-size: 10px;
+        font-weight: 450;
+        letter-spacing: 0.9px;
+        text-transform: uppercase;
       }
 
       .hero-badge {
@@ -324,12 +296,24 @@
       }
 
       .hero-focus {
+        position: relative;
         margin-top: 2px;
-        padding: 20px;
+        padding: 20px 20px 20px 30px;
         border-radius: 20px;
         background: var(--panel);
         border: 1px solid rgba(255, 255, 255, 0.06);
         backdrop-filter: blur(18px);
+      }
+
+      .hero-focus::before {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: 16px;
+        bottom: 16px;
+        width: 4px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(255, 159, 110, 0.5), rgba(103, 215, 197, 0.42));
       }
 
       .hero-focus h3 {
@@ -746,18 +730,11 @@
 
         .hero-copy-card {
           padding: 24px;
-          transform: translate(22px, -18px) rotate(6deg) scale(0.92);
+          transform: translate(18px, -14px) rotate(6deg) scale(0.9);
         }
 
         .hero-stack.is-copy-front .hero-photo-frame {
-          transform: translate(-10px, 12px) rotate(-6deg) scale(0.95);
-        }
-
-        .hero-photo-cue {
-          top: 14px;
-          right: 14px;
-          width: 32px;
-          height: 32px;
+          transform: translate(-8px, 10px) rotate(-6deg) scale(0.93);
         }
 
         .hero-badge {

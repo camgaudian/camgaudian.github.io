@@ -730,11 +730,12 @@
 
         .hero-copy-card {
           padding: 24px;
-          transform: translate(18px, -14px) rotate(6deg) scale(0.9);
+          transform: translate(18px, -14px) rotate(6deg) scale(0.94);
         }
 
         .hero-card-copy {
-          font-size: clamp(28px, 7vw, 34px);
+          font-size: clamp(32px, 8vw, 38px);
+          line-height: 1.12;
         }
 
         .hero-stack.is-copy-front .hero-photo-frame {

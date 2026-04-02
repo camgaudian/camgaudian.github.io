@@ -733,6 +733,10 @@
           transform: translate(18px, -14px) rotate(6deg) scale(0.9);
         }
 
+        .hero-card-copy {
+          font-size: clamp(28px, 7vw, 34px);
+        }
+
         .hero-stack.is-copy-front .hero-photo-frame {
           transform: translate(-8px, 10px) rotate(-6deg) scale(0.93);
         }

@@ -11,474 +11,428 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="page">
-      <header>
-        <div class="logo">Cameron Gaudian</div>
-        <nav>
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
-        </nav>
+    <div class="ide" data-ide>
+      <!-- Title bar -->
+      <header class="titlebar">
+        <div class="titlebar-left">
+          <span class="traffic" aria-hidden="true">
+            <i class="dot dot-red"></i>
+            <i class="dot dot-amber"></i>
+            <i class="dot dot-green"></i>
+          </span>
+          <button class="sidebar-toggle" type="button" data-sidebar-toggle aria-label="Toggle file explorer" aria-expanded="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" />
+              <line x1="6" y1="3" x2="6" y2="13" stroke="currentColor" />
+            </svg>
+          </button>
+        </div>
+        <div class="titlebar-center">
+          <span class="crumb-muted">cameron-gaudian</span>
+          <span class="crumb-sep">/</span>
+          <span class="crumb-file" data-active-file>welcome.ts</span>
+        </div>
+        <div class="titlebar-right">
+          <button class="cmdk-trigger" type="button" data-open-palette aria-label="Open command palette">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="7" cy="7" r="4.5" stroke="currentColor" />
+              <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-linecap="round" />
+            </svg>
+            <span>Search commands</span>
+            <kbd>Ctrl</kbd><kbd>K</kbd>
+          </button>
+        </div>
       </header>
 
-      <section class="hero">
-        <div class="hero-visual reveal delay-1">
-          <div class="hero-stack" data-card-stack>
-            <div
-              class="hero-stack-card hero-copy-card"
-              role="button"
-              tabindex="0"
-              aria-label="Swap the hero cards"
-              data-card-toggle
-            >
-              <span class="hero-card-label">Profile Snapshot</span>
-              <p class="hero-card-copy">
-                CS student focused on intuitive thinking, real-world workflows, and useful software.
-              </p>
-              <div class="hero-actions hero-card-actions">
-                <a class="button primary" href="#projects">See the work</a>
-                <a class="button secondary" href="mailto:cam.lambertt@gmail.com">Email me</a>
+      <div class="workbench">
+        <!-- Activity bar -->
+        <nav class="activitybar" aria-label="Activity bar">
+          <button class="activity-item is-active" type="button" data-sidebar-toggle aria-label="Explorer">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 4h7l2 2h5v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <button class="activity-item" type="button" data-open-palette aria-label="Search">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <a class="activity-item" href="https://github.com/camgaudian" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/>
+            </svg>
+          </a>
+          <a class="activity-item" href="https://www.linkedin.com/in/cameron-gaudian-49499429a/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.4h3.1V21H3.4V8.4Zm5.06 0h2.97v1.72h.04c.41-.78 1.42-1.6 2.93-1.6 3.13 0 3.71 2.06 3.71 4.74V21h-3.1v-5.59c0-1.33-.02-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95V21h-3.1V8.4Z"/>
+            </svg>
+          </a>
+        </nav>
+
+        <!-- Sidebar / file explorer -->
+        <aside class="sidebar" data-sidebar aria-label="File explorer">
+          <div class="sidebar-header">Explorer</div>
+          <div class="tree">
+            <button class="tree-section" type="button" data-folder-toggle aria-expanded="true">
+              <span class="chevron">▾</span> PORTFOLIO
+            </button>
+            <div class="tree-group" data-folder-group>
+              <button class="tree-item" type="button" data-nav="home">
+                <span class="file-icon icon-ts">TS</span> welcome.ts
+              </button>
+              <button class="tree-item" type="button" data-nav="experience">
+                <span class="file-icon icon-json">{}</span> experience.json
+              </button>
+              <button class="tree-item tree-folder" type="button" data-subfolder-toggle data-nav-section="projects" aria-expanded="true">
+                <span class="chevron">▾</span><span class="folder-icon">▦</span> projects
+              </button>
+              <div class="tree-subgroup" data-subfolder-group>
+                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-student-flow">
+                  <span class="file-icon icon-sql">DB</span> student-flow.sql
+                </button>
+                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-cfc-ai">
+                  <span class="file-icon icon-py">PY</span> cfc-assistant.py
+                </button>
+                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-deadfront">
+                  <span class="file-icon icon-cs">C#</span> deadfront.cs
+                </button>
+              </div>
+              <button class="tree-item" type="button" data-nav="skills">
+                <span class="file-icon icon-txt">TXT</span> skills.txt
+              </button>
+              <button class="tree-item" type="button" data-nav="contact">
+                <span class="file-icon icon-sh">SH</span> contact.sh
+              </button>
+            </div>
+          </div>
+          <div class="sidebar-footer">
+            <span class="status-dot"></span> Available for opportunities
+          </div>
+        </aside>
+        <div class="sidebar-scrim" data-sidebar-scrim aria-hidden="true"></div>
+
+        <!-- Editor -->
+        <main class="editor">
+          <div class="tabbar" data-tabbar role="tablist" aria-label="Open files">
+            <button class="tab" type="button" role="tab" data-tab="home"><span class="file-icon icon-ts">TS</span> welcome.ts</button>
+            <button class="tab" type="button" role="tab" data-tab="experience"><span class="file-icon icon-json">{}</span> experience.json</button>
+            <button class="tab" type="button" role="tab" data-tab="projects"><span class="file-icon icon-tsx">TSX</span> projects.tsx</button>
+            <button class="tab" type="button" role="tab" data-tab="skills"><span class="file-icon icon-txt">TXT</span> skills.txt</button>
+            <button class="tab" type="button" role="tab" data-tab="contact"><span class="file-icon icon-sh">SH</span> contact.sh</button>
+          </div>
+
+          <div class="editor-scroll" data-scroll>
+            <div class="editor-inner">
+              <div class="gutter" data-gutter aria-hidden="true"></div>
+              <div class="editor-content">
+              <!-- welcome.ts / hero -->
+              <section class="filesection hero" id="home" data-file="home" data-name="welcome.ts" data-lang="TypeScript">
+                <div class="hero-grid">
+                  <div class="hero-photo-wrap reveal">
+                    <img
+                      class="hero-photo"
+                      src="cam_pic.jpg"
+                      alt="Portrait of Cameron Gaudian"
+                      onerror="this.classList.add('is-missing')"
+                    />
+                  </div>
+                  <div class="hero-panel reveal">
+                    <p class="hero-kicker"><span class="tok-comment">// CS Portfolio</span></p>
+                    <h1 class="hero-title">Building practical software and sharpening core skills</h1>
+                    <ul class="hero-specs">
+                      <li><span class="spec-key">role</span><span class="spec-val">CS Student &amp; Software Engineer</span></li>
+                      <li><span class="spec-key">school</span><span class="spec-val">Minnesota State University, Mankato</span></li>
+                      <li><span class="spec-key">focus</span><span class="spec-val">Java · Azure · SQL · DB design</span></li>
+                      <li><span class="spec-key">values</span><span class="spec-val">Consistency · Collaboration</span></li>
+                      <li><span class="spec-key">status</span><span class="spec-val spec-status"><span class="status-dot"></span> Available for opportunities</span></li>
+                    </ul>
+                    <div class="hero-actions">
+                      <button class="button terminal-btn" type="button" data-window-open="about-modal">
+                        <span class="term-icon" aria-hidden="true">&gt;_</span>About me
+                      </button>
+                      <button class="button primary" type="button" data-nav="projects">See the work</button>
+                      <a class="button ghost" href="mailto:cam.lambertt@gmail.com">Email me</a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- experience.json -->
+              <section class="filesection" id="experience" data-file="experience" data-name="experience.json" data-lang="JSON">
+                <h2 class="section-heading"><span class="kw-comment">// </span>Experience</h2>
+                <article class="card experience-card reveal">
+                  <p class="experience-label">Current Role</p>
+                  <h3>Software Engineer Intern</h3>
+                  <p class="experience-company">Thomson Reuters</p>
+                  <p class="experience-meta">Apr 2026 - May 2027 <span class="meta-sep">·</span> Mankato, MN</p>
+                  <details class="experience-details">
+                    <summary>Description</summary>
+                    <p>
+                      Working with Maverick Software Consulting as a Software Engineering Intern in a mentored,
+                      real-world software development environment focused on practical engineering experience,
+                      technical collaboration, and long-term growth.
+                    </p>
+                  </details>
+                </article>
+              </section>
+
+              <!-- projects.tsx -->
+              <section class="filesection" id="projects" data-file="projects" data-name="projects.tsx" data-lang="TypeScript JSX">
+                <h2 class="section-heading"><span class="kw-comment">// </span>Selected Projects</h2>
+                <div class="grid projects">
+                  <article class="card project-card reveal">
+                    <span class="project-ext">.sql</span>
+                    <h3>Student Flow Visualization Tool</h3>
+                    <span class="tag-row">
+                      <span class="tag">Database Design</span>
+                      <span class="tag">Azure</span>
+                      <span class="tag">SQL</span>
+                    </span>
+                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-student-flow">
+                      View details
+                    </button>
+                  </article>
+                  <article class="card project-card reveal">
+                    <span class="project-ext">.py</span>
+                    <h3>CFC AI Support Assistant</h3>
+                    <span class="tag-row">
+                      <span class="tag">AI</span>
+                      <span class="tag">Python</span>
+                      <span class="tag">RAG</span>
+                      <span class="tag">NLP</span>
+                    </span>
+                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-cfc-ai">
+                      View details
+                    </button>
+                  </article>
+                  <article class="card project-card reveal">
+                    <span class="project-ext">.cs</span>
+                    <h3>DEADFRONT Game</h3>
+                    <span class="tag-row">
+                      <span class="tag">Unity</span>
+                      <span class="tag">C#</span>
+                      <span class="tag">OOP</span>
+                      <span class="tag">3D Environment</span>
+                    </span>
+                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-deadfront">
+                      View details
+                    </button>
+                  </article>
+                </div>
+
+                <dialog class="project-modal" id="project-modal-student-flow" aria-labelledby="project-modal-student-flow-title">
+                  <div class="project-modal-inner">
+                    <div class="project-modal-head">
+                      <p class="project-modal-label">Project Details</p>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <h3 id="project-modal-student-flow-title">Student Flow Visualization Tool</h3>
+                    <p class="project-modal-date">Spring 2026</p>
+                    <div class="tag-row">
+                      <span class="tag">Database Design</span>
+                      <span class="tag">Azure</span>
+                      <span class="tag">SQL</span>
+                    </div>
+                    <p class="project-modal-description">
+                      A data visualization system for analyzing and modeling student enrollment, transfer, and
+                      graduation pathways at MNSU. It aggregates multi-source institutional data, designs a scalable
+                      relational model, and builds structured pipelines for Sankey visualizations that show how
+                      students move through and beyond the university. The system helps administrators understand
+                      student origins, academic progression, transfer behavior, and degree outcomes through clean,
+                      queryable, and well-structured data.
+                    </p>
+                    <div class="project-actions">
+                      <p class="project-modal-note">Public artifacts are unavailable for this project due to NDA restrictions.</p>
+                    </div>
+                  </div>
+                </dialog>
+
+                <dialog class="project-modal" id="project-modal-cfc-ai" aria-labelledby="project-modal-cfc-ai-title">
+                  <div class="project-modal-inner">
+                    <div class="project-modal-head">
+                      <p class="project-modal-label">Project Details</p>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <h3 id="project-modal-cfc-ai-title">CFC AI Support Assistant</h3>
+                    <p class="project-modal-date">Fall 2025</p>
+                    <div class="tag-row">
+                      <span class="tag">AI</span>
+                      <span class="tag">Python</span>
+                      <span class="tag">RAG</span>
+                      <span class="tag">NLP</span>
+                    </div>
+                    <p class="project-modal-description">
+                      An AI chatbot leveraging Retrieval-Augmented Generation to answer customer questions based on
+                      CFC Technologies' internal help documentation, improving the overall customer support experience.
+                    </p>
+                    <div class="project-actions">
+                      <a class="button secondary project-button" href="https://youtu.be/vnwzOvCkCeY" target="_blank" rel="noopener">Watch a quick demo</a>
+                      <a class="button secondary project-button" href="https://github.com/Kaleab84/Chat-Talk" target="_blank" rel="noopener">Visit the GitHub repo</a>
+                    </div>
+                  </div>
+                </dialog>
+
+                <dialog class="project-modal" id="project-modal-deadfront" aria-labelledby="project-modal-deadfront-title">
+                  <div class="project-modal-inner">
+                    <div class="project-modal-head">
+                      <p class="project-modal-label">Project Details</p>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <h3 id="project-modal-deadfront-title">DEADFRONT Game</h3>
+                    <p class="project-modal-date">Fall 2024</p>
+                    <div class="tag-row">
+                      <span class="tag">Unity</span>
+                      <span class="tag">C#</span>
+                      <span class="tag">OOP</span>
+                      <span class="tag">3D Environment</span>
+                    </div>
+                    <p class="project-modal-description">
+                      A 3D FPS zombie wave survival game built in Unity using C#. Main features include full weapon
+                      systems, player health systems, enemy AI, and wave progression. Additional interface elements
+                      include a HUD, status displays (like ammo/health), and feedback such as audio and visual cues.
+                    </p>
+                    <div class="project-actions">
+                      <a class="button secondary project-button" href="https://youtu.be/xAcbX7r1f_s" target="_blank" rel="noopener">Watch the game trailer</a>
+                    </div>
+                  </div>
+                </dialog>
+              </section>
+
+              <!-- skills.txt -->
+              <section class="filesection" id="skills" data-file="skills" data-name="skills.txt" data-lang="Plain Text">
+                <h2 class="section-heading"><span class="kw-comment">// </span>Skills &amp; Focus</h2>
+                <div class="grid timeline">
+                  <div class="card reveal">
+                    <h3>Languages</h3>
+                    <p>Python &amp; C# proficiency; have experience with SQL, HTML/CSS, Java/JavaScript, and more.</p>
+                  </div>
+                  <div class="card reveal">
+                    <h3>Tools</h3>
+                    <p>Git/GitHub, VS Code, TestNG, AWS, Azure; currently learning React, command line, and more.</p>
+                  </div>
+                  <div class="card reveal">
+                    <h3>Core Concepts</h3>
+                    <p>OS, algorithms, data structures, and more; currently studying data mining
+                      &amp; information security.</p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- contact.sh -->
+              <section class="filesection" id="contact" data-file="contact" data-name="contact.sh" data-lang="Shell Script">
+                <h2 class="section-heading"><span class="kw-comment">// </span>Contact</h2>
+                <div class="prose-card reveal">
+                  <p class="contact-line"><span class="tok-comment">$</span> echo "Want to collaborate, or just say hi?"</p>
+                  <p>Reach out, and let's build something together.</p>
+                  <div class="hero-actions contact-actions">
+                    <a class="button primary" href="mailto:cam.lambertt@gmail.com">Email me</a>
+                    <a class="button primary" href="https://www.linkedin.com/in/cameron-gaudian-49499429a/">Connect on LinkedIn</a>
+                    <button class="button primary" type="button" data-modal-target="resume-modal">View my resume</button>
+                  </div>
+                </div>
+              </section>
+
+              <footer class="footer">
+                <span><span class="tok-comment">//</span> Based in Mankato, MN.</span>
+                <span>Last updated Jun 2, 2026.</span>
+              </footer>
               </div>
             </div>
-            <button
-              class="hero-stack-card hero-photo-frame"
-              type="button"
-              aria-label="Swap the hero cards"
-              data-card-toggle
-            >
-              <img
-                class="hero-photo"
-                src="cam_pic.jpg"
-                alt="Professional portrait of Cameron Gaudian"
-              />
-            </button>
           </div>
-          <p class="hero-stack-hint">Click or tap to rotate</p>
+        </main>
+      </div>
+
+      <!-- Status bar -->
+      <footer class="statusbar">
+        <div class="statusbar-left">
+          <span class="sb-item sb-branch">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="4" cy="3.5" r="2" stroke="currentColor"/>
+              <circle cx="4" cy="12.5" r="2" stroke="currentColor"/>
+              <circle cx="12" cy="3.5" r="2" stroke="currentColor"/>
+              <path d="M4 5.5v5M12 5.5v1a3 3 0 0 1-3 3H6" stroke="currentColor"/>
+            </svg>
+            main
+          </span>
+          <span class="sb-item sb-active" data-sb-section>welcome.ts</span>
         </div>
-        <div class="hero-content reveal">
-          <p class="hero-kicker">CS Portfolio</p>
-          <h1 class="hero-title">Building practical software and sharpening core skills</h1>
-          <div class="hero-focus">
-            <h3>Now Exploring</h3>
-            <p>Java, Azure, SQL, and database design & management</p>
-          </div>
+        <div class="statusbar-right">
+          <span class="sb-item" data-sb-cursor>Ln 1, Col 1</span>
+          <span class="sb-item">UTF-8</span>
+          <span class="sb-item" data-sb-lang>TypeScript</span>
+          <span class="sb-item sb-clock" data-sb-clock>--:--</span>
         </div>
-      </section>
-
-      <section class="section reveal delay-1" id="about">
-        <h2>About</h2>
-        <p class="hero-subtitle about-copy">
-          I'm Cameron Gaudian, a student at Minnesota State University, Mankato who enjoys turning
-          big goals into consistent daily progress. Whether it's school, work, fitness,
-          or personal projects, I care a lot about consistency and steady effort. I'm easy to work
-          with, always open to learning, and motivated by building things that are genuinely useful.
-        </p>
-      </section>
-
-      <section class="section reveal delay-2" id="experience">
-        <h2>Experience</h2>
-        <article class="card experience-card">
-          <p class="experience-label">Current Role</p>
-          <h3>Software Engineer Intern</h3>
-          <p class="experience-company">Thomson Reuters</p>
-          <p class="experience-meta">Apr 2026 - May 2027 | Mankato, MN</p>
-          <details class="experience-details">
-            <summary>Description</summary>
-            <p>
-              Working with Maverick Software Consulting as a Software Engineering Intern in a mentored,
-              real-world software development environment focused on practical engineering experience,
-              technical collaboration, and long-term growth.
-            </p>
-          </details>
-        </article>
-      </section>
-
-      <section class="section reveal delay-2" id="projects">
-        <h2>Selected Projects</h2>
-        <div class="grid projects">
-          <article class="card project-card">
-            <h3>Student Flow Visualization Tool</h3>
-            <span class="tag-row">
-              <span class="tag">Database Design</span>
-              <span class="tag">Azure</span>
-              <span class="tag">SQL</span>
-            </span>
-            <button class="button secondary project-open" type="button" data-modal-target="project-modal-student-flow">
-              View details
-            </button>
-          </article>
-          <article class="card project-card">
-            <h3>CFC AI Support Assistant</h3>
-            <span class="tag-row">
-              <span class="tag">AI</span>
-              <span class="tag">Python</span>
-              <span class="tag">RAG</span>
-              <span class="tag">NLP</span>
-            </span>
-            <button class="button secondary project-open" type="button" data-modal-target="project-modal-cfc-ai">
-              View details
-            </button>
-          </article>
-          <article class="card project-card">
-            <h3>DEADFRONT Game</h3>
-            <span class="tag-row">
-              <span class="tag">Unity</span>
-              <span class="tag">C#</span>
-              <span class="tag">OOP</span>
-              <span class="tag">3D Environment</span>
-            </span>
-            <button class="button secondary project-open" type="button" data-modal-target="project-modal-deadfront">
-              View details
-            </button>
-          </article>
-        </div>
-
-        <dialog class="project-modal" id="project-modal-student-flow" aria-labelledby="project-modal-student-flow-title">
-          <div class="project-modal-inner">
-            <div class="project-modal-head">
-              <p class="project-modal-label">Project Details</p>
-              <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
-            </div>
-            <h3 id="project-modal-student-flow-title">Student Flow Visualization Tool</h3>
-            <p class="project-modal-date">Spring 2026</p>
-            <div class="tag-row">
-              <span class="tag">Database Design</span>
-              <span class="tag">Azure</span>
-              <span class="tag">SQL</span>
-            </div>
-            <p class="project-modal-description">
-              A data visualization system for analyzing and modeling student enrollment, transfer, and
-              graduation pathways at MNSU. It aggregates multi-source institutional data, designs a scalable
-              relational model, and builds structured pipelines for Sankey visualizations that show how
-              students move through and beyond the university. The system helps administrators understand
-              student origins, academic progression, transfer behavior, and degree outcomes through clean,
-              queryable, and well-structured data.
-            </p>
-            <div class="project-actions">
-              <p class="project-modal-note">Public artifacts are unavailable for this project due to NDA restrictions.</p>
-            </div>
-          </div>
-        </dialog>
-
-        <dialog class="project-modal" id="project-modal-cfc-ai" aria-labelledby="project-modal-cfc-ai-title">
-          <div class="project-modal-inner">
-            <div class="project-modal-head">
-              <p class="project-modal-label">Project Details</p>
-              <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
-            </div>
-            <h3 id="project-modal-cfc-ai-title">CFC AI Support Assistant</h3>
-            <p class="project-modal-date">Fall 2025</p>
-            <div class="tag-row">
-              <span class="tag">AI</span>
-              <span class="tag">Python</span>
-              <span class="tag">RAG</span>
-              <span class="tag">NLP</span>
-            </div>
-            <p class="project-modal-description">
-              An AI chatbot leveraging Retrieval-Augmented Generation to answer customer questions based on
-              CFC Technologies' internal help documentation, improving the overall customer support experience.
-            </p>
-            <div class="project-actions">
-              <a class="button secondary project-button" href="https://youtu.be/vnwzOvCkCeY" target="_blank" rel="noopener">Watch a quick demo</a>
-              <a class="button secondary project-button" href="https://github.com/Kaleab84/Chat-Talk" target="_blank" rel="noopener">Visit the GitHub repo</a>
-            </div>
-          </div>
-        </dialog>
-
-        <dialog class="project-modal" id="project-modal-deadfront" aria-labelledby="project-modal-deadfront-title">
-          <div class="project-modal-inner">
-            <div class="project-modal-head">
-              <p class="project-modal-label">Project Details</p>
-              <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
-            </div>
-            <h3 id="project-modal-deadfront-title">DEADFRONT Game</h3>
-            <p class="project-modal-date">Fall 2024</p>
-            <div class="tag-row">
-              <span class="tag">Unity</span>
-              <span class="tag">C#</span>
-              <span class="tag">OOP</span>
-              <span class="tag">3D Environment</span>
-            </div>
-            <p class="project-modal-description">
-              A 3D FPS zombie wave survival game built in Unity using C#. Main features include full weapon
-              systems, player health systems, enemy AI, and wave progression. Additional interface elements
-              include a HUD, status displays (like ammo/health), and feedback such as audio and visual cues.
-            </p>
-            <div class="project-actions">
-              <a class="button secondary project-button" href="https://youtu.be/xAcbX7r1f_s" target="_blank" rel="noopener">Watch the game trailer</a>
-            </div>
-          </div>
-        </dialog>
-      </section>
-
-      <section class="section reveal delay-3" id="skills">
-        <h2>Skills & Focus</h2>
-        <div class="grid timeline">
-          <div class="card">
-            <h3>Languages</h3>
-            <p>Python & C# proficiency; have experience with SQL, HTML/CSS, JavaScript, and more.</p>
-          </div>
-          <div class="card">
-            <h3>Tools</h3>
-            <p>Git/GitHub, VS Code, debugging; currently learning React, command line, and more.</p>
-          </div>
-          <div class="card">
-            <h3>Core Concepts</h3>
-            <p>OS, algorithms, data structures, and more; currently studying data mining 
-              & information security.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section reveal delay-2" id="contact">
-        <h2>Contact</h2>
-        <p class="hero-subtitle">
-          Want to collaborate, or just say hi? Reach out, and let's build something together.
-        </p>
-        <div class="hero-actions contact-actions">
-          <a class="button primary" href="mailto:cam.lambertt@gmail.com">Email me</a>
-          <a class="button primary" href="https://www.linkedin.com/in/cameron-gaudian-49499429a/">Connect on LinkedIn</a>
-          <button class="button primary" type="button" data-modal-target="resume-modal">View my resume</button>
-
-        </div>
-      </section>
-
-      <dialog class="project-modal resume-modal" id="resume-modal" aria-labelledby="resume-modal-title">
-        <div class="project-modal-inner">
-          <div class="project-modal-head">
-            <p class="project-modal-label">Resume</p>
-            <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
-          </div>
-          <h3 id="resume-modal-title">Cameron Gaudian Resume</h3>
-          <p class="project-modal-date">Previewing Resume</p>
-          <div class="resume-frame-wrap">
-            <iframe
-              class="resume-frame"
-              src="Resume042226.pdf#view=FitH"
-              title="Cameron Gaudian resume PDF preview"
-              loading="lazy"
-            ></iframe>
-          </div>
-          <div class="project-actions">
-            <a class="button secondary project-button" href="Resume042226.pdf" download>Download resume</a>
-            <a class="button secondary project-button" href="Resume042226.pdf" target="_blank" rel="noopener">Open in new tab</a>
-          </div>
-        </div>
-      </dialog>
-
-      <footer class="footer">
-        <span>Based in Mankato, MN.</span>
-        <span>Last updated Apr 22, 2026.</span>
       </footer>
     </div>
-    <script>
-      (() => {
-        const OPEN_ANIMATION_MS = 240;
-        const CLOSE_ANIMATION_MS = 170;
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const typingTimers = new WeakMap();
-        const heroStacks = document.querySelectorAll("[data-card-stack]");
 
-        const stopTyping = (element) => {
-          const timerId = typingTimers.get(element);
+    <!-- About terminal window (draggable, non-modal) -->
+    <div class="float-window" id="about-modal" role="dialog" aria-label="About Cameron Gaudian" hidden>
+      <div class="terminal-window">
+        <div class="terminal-head" data-window-drag>
+          <span class="cw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="terminal-title">cameron@portfolio: ~/about</span>
+          <button class="terminal-close" type="button" data-window-close aria-label="Close about window">✕</button>
+        </div>
+        <div class="terminal-body" data-terminal></div>
+      </div>
+    </div>
 
-          if (timerId) {
-            window.clearTimeout(timerId);
-            typingTimers.delete(element);
-          }
-        };
+    <!-- Resume modal -->
+    <dialog class="project-modal resume-modal" id="resume-modal" aria-labelledby="resume-modal-title">
+      <div class="project-modal-inner">
+        <div class="project-modal-head">
+          <p class="project-modal-label">Resume</p>
+          <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+        </div>
+        <h3 id="resume-modal-title">Cameron Gaudian Resume</h3>
+        <p class="project-modal-date">Previewing Resume</p>
+        <div class="resume-frame-wrap">
+          <iframe
+            class="resume-frame"
+            src="Resume042226.pdf#view=FitH"
+            title="Cameron Gaudian resume PDF preview"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="project-actions">
+          <a class="button secondary project-button" href="Resume042226.pdf" download>Download resume</a>
+          <a class="button secondary project-button" href="Resume042226.pdf" target="_blank" rel="noopener">Open in new tab</a>
+        </div>
+      </div>
+    </dialog>
 
-        const reserveDescriptionHeight = (element) => {
-          const fullText = element.dataset.fullText || "";
-          stopTyping(element);
+    <!-- Command palette -->
+    <div class="palette-overlay" data-palette hidden>
+      <div class="palette" role="dialog" aria-modal="true" aria-label="Command palette">
+        <div class="palette-input-row">
+          <span class="palette-prompt">&gt;</span>
+          <input
+            type="text"
+            class="palette-input"
+            data-palette-input
+            placeholder="Run a command..."
+            aria-label="Command palette search"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <ul class="palette-list" data-palette-list role="listbox" aria-label="Commands"></ul>
+        <div class="palette-foot">
+          <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+          <span><kbd>↵</kbd> select</span>
+          <span><kbd>esc</kbd> close</span>
+        </div>
+      </div>
+    </div>
 
-          if (!fullText) {
-            element.style.minHeight = "0px";
-            return;
-          }
-
-          const previousText = element.textContent;
-          const previousVisibility = element.style.visibility;
-
-          element.style.minHeight = "0px";
-          element.style.visibility = "hidden";
-          element.textContent = fullText;
-
-          const reservedHeight = Math.ceil(element.getBoundingClientRect().height);
-          element.style.minHeight = `${reservedHeight}px`;
-
-          element.textContent = previousText;
-          element.style.visibility = previousVisibility;
-        };
-
-        const typeDescription = (element) => {
-          const fullText = element.dataset.fullText || "";
-          stopTyping(element);
-
-          if (prefersReducedMotion.matches) {
-            element.textContent = fullText;
-            return;
-          }
-
-          let index = 0;
-          element.textContent = "";
-
-          const tick = () => {
-            if (index >= fullText.length) {
-              typingTimers.delete(element);
-              return;
-            }
-
-            element.textContent += fullText.charAt(index);
-            index += 1;
-
-            const previousChar = fullText.charAt(index - 1);
-            const nextDelay = /[.,!?]/.test(previousChar) ? 14 : 5;
-            const timerId = window.setTimeout(tick, nextDelay);
-            typingTimers.set(element, timerId);
-          };
-
-          tick();
-        };
-
-        const prepareDescriptions = () => {
-          document.querySelectorAll(".project-modal-description").forEach((description) => {
-            if (!description.dataset.fullText) {
-              description.dataset.fullText = description.textContent.replace(/\s+/g, " ").trim();
-              description.textContent = description.dataset.fullText;
-            }
-          });
-        };
-
-        const toggleHeroStack = (stack) => {
-          if (!stack) {
-            return;
-          }
-
-          stack.classList.toggle("is-copy-front");
-        };
-
-        const closeDialog = (dialog) => {
-          if (!dialog || !dialog.open) {
-            return;
-          }
-
-          dialog.querySelectorAll(".project-modal-description").forEach((description) => {
-            stopTyping(description);
-            description.textContent = description.dataset.fullText || description.textContent;
-          });
-
-          if (prefersReducedMotion.matches) {
-            dialog.classList.remove("is-opening", "is-closing");
-            dialog.close();
-            return;
-          }
-
-          dialog.classList.remove("is-opening");
-          dialog.classList.add("is-closing");
-
-          window.setTimeout(() => {
-            if (dialog.open) {
-              dialog.close();
-            }
-            dialog.classList.remove("is-closing");
-          }, CLOSE_ANIMATION_MS);
-        };
-
-        const openDialog = (dialog) => {
-          if (!dialog || dialog.open || typeof dialog.showModal !== "function") {
-            return;
-          }
-
-          dialog.classList.remove("is-closing");
-          dialog.showModal();
-
-          if (!prefersReducedMotion.matches) {
-            dialog.classList.add("is-opening");
-            window.setTimeout(() => dialog.classList.remove("is-opening"), OPEN_ANIMATION_MS);
-          }
-
-          const descriptions = dialog.querySelectorAll(".project-modal-description");
-
-          window.requestAnimationFrame(() => {
-            descriptions.forEach((description) => {
-              reserveDescriptionHeight(description);
-              typeDescription(description);
-            });
-          });
-        };
-
-        const openButtons = document.querySelectorAll("[data-modal-target]");
-
-        openButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const modalId = button.getAttribute("data-modal-target");
-            const dialog = document.getElementById(modalId);
-            openDialog(dialog);
-          });
-        });
-
-        const dialogs = document.querySelectorAll(".project-modal");
-
-        heroStacks.forEach((stack) => {
-          stack.querySelectorAll("[data-card-toggle]").forEach((card) => {
-            card.addEventListener("click", (event) => {
-              if (event.target.closest("a")) {
-                return;
-              }
-
-              toggleHeroStack(stack);
-            });
-
-            if (card.tagName !== "BUTTON") {
-              card.addEventListener("keydown", (event) => {
-                if (event.key !== "Enter" && event.key !== " ") {
-                  return;
-                }
-
-                event.preventDefault();
-                toggleHeroStack(stack);
-              });
-            }
-          });
-        });
-
-        dialogs.forEach((dialog) => {
-          dialog.addEventListener("click", (event) => {
-            const rect = dialog.getBoundingClientRect();
-            const clickedInside =
-              event.clientX >= rect.left &&
-              event.clientX <= rect.right &&
-              event.clientY >= rect.top &&
-              event.clientY <= rect.bottom;
-
-            if (!clickedInside) {
-              closeDialog(dialog);
-            }
-          });
-
-          dialog.addEventListener("cancel", (event) => {
-            event.preventDefault();
-            closeDialog(dialog);
-          });
-
-          const closeButtons = dialog.querySelectorAll("[data-close-modal]");
-
-          closeButtons.forEach((closeButton) => {
-            closeButton.addEventListener("click", () => closeDialog(dialog));
-          });
-        });
-
-        prepareDescriptions();
-      })();
-    </script>
+    <script src="main.js" defer></script>
   </body>
 </html>

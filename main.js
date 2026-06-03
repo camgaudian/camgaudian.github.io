@@ -447,6 +447,208 @@
   prepareDescriptions();
 
   /* =========================================================
+   * Contact terminal (interactive: message -> contact -> send)
+   *
+   * The destination webhook is kept out of plaintext via base64.
+   * NOTE: this only deters casual scraping. On a static site the
+   * endpoint is ultimately reachable by the client, so it cannot be
+   * truly secret. A serverless proxy would be needed for real secrecy.
+   * =======================================================*/
+  const WEBHOOK_PARTS = [
+    "aHR0cHM6Ly9kaXNjb3JkYXBwLmNvbS9hcGkvd2ViaG9va3MvMTUxMTgwNzg0MjE1NDE4ODgyMC9Fai05czk2",
+    "RnVVbjBLU1k1djZvZjdQamswcjBkc1ZueWRJZ3pZdlZUekZUZjJMY0xPd3lpZ1dEc1RvaEl1VUpTVFBLVA==",
+  ];
+  const getWebhookUrl = () => {
+    try {
+      return window.atob(WEBHOOK_PARTS.join(""));
+    } catch (_) {
+      return "";
+    }
+  };
+
+  const contactState = new WeakMap();
+
+  const appendContactLine = (root, opts) => {
+    const el = document.createElement("div");
+    el.className = "term-line";
+    if (opts.kind === "gap") {
+      el.classList.add("term-gap");
+      root.appendChild(el);
+      return el;
+    }
+    if (opts.kind === "cmd") {
+      el.classList.add("term-cmd");
+      const prompt = document.createElement("span");
+      prompt.className = "term-prompt";
+      prompt.textContent = opts.prompt || "$";
+      const span = document.createElement("span");
+      span.className = "term-text";
+      span.textContent = opts.text || "";
+      el.append(prompt, document.createTextNode(" "), span);
+    } else {
+      el.classList.add("term-out");
+      if (opts.cls) el.classList.add(opts.cls);
+      el.textContent = opts.text || "";
+    }
+    root.appendChild(el);
+    root.scrollTop = root.scrollHeight;
+    return el;
+  };
+
+  const stopContactTerminal = (root) => {
+    const state = contactState.get(root);
+    if (state && state.timer) window.clearTimeout(state.timer);
+    contactState.delete(root);
+    root.replaceChildren();
+  };
+
+  const postToDiscord = async (message, contact) => {
+    const url = getWebhookUrl();
+    if (!url) return false;
+    const content = [
+      "**New portfolio message**",
+      "**Message:** " + message,
+      "**Contact:** " + contact,
+    ].join("\n");
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: "Portfolio Contact",
+          content,
+          // Never let a submitted message ping anyone.
+          allowed_mentions: { parse: [] },
+        }),
+      });
+      return res.ok;
+    } catch (_) {
+      return false;
+    }
+  };
+
+  const startContactTerminal = (root) => {
+    stopContactTerminal(root);
+    const state = { timer: 0 };
+    contactState.set(root, state);
+    root.replaceChildren();
+
+    const intro = [
+      { kind: "cmd", text: "contact --new" },
+      { kind: "out", text: "Leave a message below, plus a phone number or email," },
+      { kind: "out", text: "and I'll get back to you as soon as I can." },
+      { kind: "gap" },
+    ];
+
+    const showPrompt = (label, hint, onSubmit) => {
+      appendContactLine(root, { kind: "out", text: hint });
+      const line = document.createElement("div");
+      line.className = "term-line term-cmd term-input-line";
+      const prompt = document.createElement("span");
+      prompt.className = "term-prompt";
+      prompt.textContent = label;
+      const input = document.createElement("input");
+      input.className = "term-field";
+      input.type = "text";
+      input.autocomplete = "off";
+      input.spellcheck = false;
+      input.setAttribute("aria-label", hint);
+      line.append(prompt, document.createTextNode(" "), input);
+      root.appendChild(line);
+      root.scrollTop = root.scrollHeight;
+      input.focus();
+
+      input.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        const value = input.value.trim();
+        if (!value) return;
+        input.remove();
+        const span = document.createElement("span");
+        span.className = "term-text";
+        span.textContent = value;
+        line.appendChild(span);
+        line.classList.remove("term-input-line");
+        onSubmit(value);
+      });
+    };
+
+    const promptMessage = () => {
+      showPrompt("message>", "What would you like to say?", (message) => {
+        appendContactLine(root, { kind: "gap" });
+        promptContact(message);
+      });
+    };
+
+    const promptContact = (message) => {
+      showPrompt("contact>", "How can I reach you? (phone, email, etc.)", (contact) => {
+        appendContactLine(root, { kind: "gap" });
+        sendMessage(message, contact);
+      });
+    };
+
+    const sendMessage = async (message, contact) => {
+      const status = appendContactLine(root, { kind: "out", text: "Sending…" });
+      const ok = await postToDiscord(message, contact);
+      if (contactState.get(root) !== state) return; // window was closed/reset
+      if (ok) {
+        status.textContent = "✓ Message sent — thanks for reaching out! I'll be in touch soon.";
+        status.classList.add("term-ok");
+      } else {
+        status.textContent = "✗ Couldn't send right now. Please email cam.lambertt@gmail.com instead.";
+        status.classList.add("term-err");
+      }
+    };
+
+    const typeIntro = (done) => {
+      if (prefersReducedMotion.matches) {
+        intro.forEach((line) => appendContactLine(root, line));
+        done();
+        return;
+      }
+      let lineIndex = 0;
+      let charIndex = 0;
+      let current = null;
+      let target = null;
+      const tick = () => {
+        if (lineIndex >= intro.length) {
+          done();
+          return;
+        }
+        const line = intro[lineIndex];
+        if (!current) {
+          current = appendContactLine(root, { ...line, text: "" });
+          if (line.kind === "gap") {
+            lineIndex += 1;
+            current = null;
+            state.timer = window.setTimeout(tick, 70);
+            return;
+          }
+          target = line.kind === "cmd" ? current.querySelector(".term-text") : current;
+          charIndex = 0;
+          current.classList.add("is-typing");
+        }
+        const full = line.text || "";
+        if (charIndex < full.length) {
+          target.textContent += full.charAt(charIndex);
+          charIndex += 1;
+          root.scrollTop = root.scrollHeight;
+          state.timer = window.setTimeout(tick, line.kind === "cmd" ? 24 : 7);
+        } else {
+          current.classList.remove("is-typing");
+          lineIndex += 1;
+          current = null;
+          target = null;
+          state.timer = window.setTimeout(tick, line.kind === "cmd" ? 160 : 70);
+        }
+      };
+      tick();
+    };
+
+    typeIntro(promptMessage);
+  };
+
+  /* =========================================================
    * Floating windows (draggable, non-modal)
    * =======================================================*/
   const positionWindowDefault = (win) => {
@@ -461,9 +663,15 @@
 
   const openWindow = (win) => {
     if (!win) return;
+    // Only one floating terminal window at a time — they share a default
+    // position and would otherwise overlap and fight for focus.
+    floatWindows.forEach((other) => {
+      if (other !== win) closeWindow(other);
+    });
     win.hidden = false;
     positionWindowDefault(win);
     win.querySelectorAll("[data-terminal]").forEach((terminal) => startTerminal(terminal));
+    win.querySelectorAll("[data-contact-terminal]").forEach((terminal) => startContactTerminal(terminal));
     const closeBtn = win.querySelector("[data-window-close]");
     if (closeBtn) closeBtn.focus({ preventScroll: true });
   };
@@ -472,6 +680,7 @@
     if (!win || win.hidden) return;
     win.hidden = true;
     win.querySelectorAll("[data-terminal]").forEach((terminal) => stopTerminal(terminal));
+    win.querySelectorAll("[data-contact-terminal]").forEach((terminal) => stopContactTerminal(terminal));
   };
 
   const enableWindowDrag = (win) => {

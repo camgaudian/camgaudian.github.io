@@ -1296,6 +1296,35 @@ kbd {
   color: #4ec9b0;
 }
 
+.term-err {
+  color: #f48771;
+}
+
+.term-input-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.term-field {
+  flex: 1;
+  min-width: 10ch;
+  margin-left: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: inherit;
+  line-height: inherit;
+  caret-color: var(--accent);
+  outline: none;
+}
+
+.term-field::placeholder {
+  color: var(--text-muted);
+}
+
 .term-line.is-typing::after {
   content: "";
   display: inline-block;

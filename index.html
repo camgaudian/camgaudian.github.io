@@ -159,7 +159,7 @@
                         <span class="term-icon" aria-hidden="true">&gt;_</span>About me
                       </button>
                       <button class="button primary" type="button" data-nav="projects">See the work</button>
-                      <a class="button ghost" href="mailto:cam.lambertt@gmail.com">Email me</a>
+                      <button class="button ghost" type="button" data-modal-target="resume-modal">View my resume</button>
                     </div>
                   </div>
                 </div>
@@ -331,11 +331,13 @@
                 <h2 class="section-heading"><span class="kw-comment">// </span>Contact</h2>
                 <div class="prose-card reveal">
                   <p class="contact-line"><span class="tok-comment">$</span> echo "Want to collaborate, or just say hi?"</p>
-                  <p>Reach out, and let's build something together.</p>
+                  <p>Reach out, and I'll get back to you as soon as possible.</p>
                   <div class="hero-actions contact-actions">
-                    <a class="button primary" href="mailto:cam.lambertt@gmail.com">Email me</a>
-                    <a class="button primary" href="https://www.linkedin.com/in/cameron-gaudian-49499429a/">Connect on LinkedIn</a>
-                    <button class="button primary" type="button" data-modal-target="resume-modal">View my resume</button>
+                    <button class="button terminal-btn" type="button" data-window-open="message-modal">
+                      <span class="term-icon" aria-hidden="true">&gt;_</span>Send me a message
+                    </button>
+                    <a class="button secondary" href="mailto:cam.lambertt@gmail.com">Email me</a>
+                    <a class="button secondary" href="https://www.linkedin.com/in/cameron-gaudian-49499429a/">Connect on LinkedIn</a>
                   </div>
                 </div>
               </section>
@@ -382,6 +384,18 @@
           <button class="terminal-close" type="button" data-window-close aria-label="Close about window">✕</button>
         </div>
         <div class="terminal-body" data-terminal></div>
+      </div>
+    </div>
+
+    <!-- Message terminal window (draggable, non-modal) -->
+    <div class="float-window" id="message-modal" role="dialog" aria-label="Send Cameron a message" hidden>
+      <div class="terminal-window">
+        <div class="terminal-head" data-window-drag>
+          <span class="cw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="terminal-title">cameron@portfolio: ~/message</span>
+          <button class="terminal-close" type="button" data-window-close aria-label="Close message window">✕</button>
+        </div>
+        <div class="terminal-body" data-contact-terminal></div>
       </div>
     </div>
 

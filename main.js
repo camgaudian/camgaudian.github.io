@@ -6,6 +6,7 @@
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const typingTimers = new WeakMap();
   const typingResolvers = new WeakMap();
+  const shotsResets = new WeakMap();
 
   /* =========================================================
    * Section / file map (drives tabs, sidebar, status bar)
@@ -417,6 +418,10 @@
       dialog.classList.add("is-opening");
       window.setTimeout(() => dialog.classList.remove("is-opening"), OPEN_ANIMATION_MS);
     }
+    dialog.querySelectorAll("[data-shots-gallery]").forEach((gallery) => {
+      const reset = shotsResets.get(gallery);
+      if (reset) reset();
+    });
     const descriptions = [...dialog.querySelectorAll(".project-modal-description")];
     const terminals = dialog.querySelectorAll("[data-terminal]");
     window.requestAnimationFrame(async () => {
@@ -431,6 +436,37 @@
       terminals.forEach((terminal) => startTerminal(terminal));
     });
   };
+
+  document.querySelectorAll("[data-shots-gallery]").forEach((gallery) => {
+    const images = [...gallery.querySelectorAll(".project-shots img")];
+    const prevButton = gallery.querySelector("[data-shots-prev]");
+    const nextButton = gallery.querySelector("[data-shots-next]");
+    const status = gallery.querySelector("[data-shots-status]");
+    if (!images.length || !prevButton || !nextButton) return;
+
+    let index = 0;
+
+    const render = () => {
+      images.forEach((image, i) => image.classList.toggle("is-active", i === index));
+      if (status) status.textContent = `${index + 1} / ${images.length}`;
+    };
+
+    shotsResets.set(gallery, () => {
+      index = 0;
+      render();
+    });
+
+    prevButton.addEventListener("click", () => {
+      index = (index - 1 + images.length) % images.length;
+      render();
+    });
+    nextButton.addEventListener("click", () => {
+      index = (index + 1) % images.length;
+      render();
+    });
+
+    render();
+  });
 
   document.querySelectorAll("[data-modal-target]").forEach((button) => {
     button.addEventListener("click", () => {

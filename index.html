@@ -242,11 +242,18 @@
                       <span class="tag">TypeScript</span>
                       <span class="tag">Mobile-First</span>
                     </div>
-                    <div class="project-shots" aria-label="Lift app screenshots">
-                      <img src="far_left.PNG" alt="Lift profile screen with friends and Spotify track sharing" />
-                      <img src="middle_left.PNG" alt="Lift home dashboard with streak, workouts, and volume stats" />
-                      <img src="middle_right.PNG" alt="Lift active workout logging with last-session placeholders" />
-                      <img src="far_right.PNG" alt="Lift PR leaderboard ranking top exercises" />
+                    <div class="project-shots-gallery" data-shots-gallery>
+                      <div class="project-shots" aria-label="Lift app screenshots">
+                        <img src="far_left.PNG" alt="Lift profile screen with friends and Spotify track sharing" />
+                        <img src="middle_left.PNG" alt="Lift home dashboard with streak, workouts, and volume stats" />
+                        <img src="middle_right.PNG" alt="Lift active workout logging with last-session placeholders" />
+                        <img src="far_right.PNG" alt="Lift PR leaderboard ranking top exercises" />
+                      </div>
+                      <div class="project-shots-nav">
+                        <button class="button secondary project-shots-btn" type="button" data-shots-prev aria-label="Previous screenshot">‹</button>
+                        <span class="project-shots-status" data-shots-status aria-live="polite">1 / 4</span>
+                        <button class="button secondary project-shots-btn" type="button" data-shots-next aria-label="Next screenshot">›</button>
+                      </div>
                     </div>
                     <p class="project-modal-description">
                       Lift is a personal passion project, a mobile-first social-fitness app made for tracking all kinds of

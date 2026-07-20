@@ -5,6 +5,7 @@
   const CLOSE_ANIMATION_MS = 160;
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const typingTimers = new WeakMap();
+  const typingResolvers = new WeakMap();
 
   /* =========================================================
    * Section / file map (drives tabs, sidebar, status bar)
@@ -325,6 +326,11 @@
       window.clearTimeout(timerId);
       typingTimers.delete(element);
     }
+    const resolve = typingResolvers.get(element);
+    if (resolve) {
+      typingResolvers.delete(element);
+      resolve();
+    }
   };
 
   const reserveDescriptionHeight = (element) => {
@@ -345,29 +351,34 @@
     element.style.visibility = previousVisibility;
   };
 
-  const typeDescription = (element) => {
-    const fullText = element.dataset.fullText || "";
-    stopTyping(element);
-    if (prefersReducedMotion.matches) {
-      element.textContent = fullText;
-      return;
-    }
-    let index = 0;
-    element.textContent = "";
-    const tick = () => {
-      if (index >= fullText.length) {
-        typingTimers.delete(element);
+  const typeDescription = (element) =>
+    new Promise((resolve) => {
+      const fullText = element.dataset.fullText || "";
+      stopTyping(element);
+      if (prefersReducedMotion.matches) {
+        element.textContent = fullText;
+        resolve();
         return;
       }
-      element.textContent += fullText.charAt(index);
-      index += 1;
-      const previousChar = fullText.charAt(index - 1);
-      const nextDelay = /[.,!?]/.test(previousChar) ? 14 : 5;
-      const timerId = window.setTimeout(tick, nextDelay);
-      typingTimers.set(element, timerId);
-    };
-    tick();
-  };
+      typingResolvers.set(element, resolve);
+      let index = 0;
+      element.textContent = "";
+      const tick = () => {
+        if (index >= fullText.length) {
+          typingTimers.delete(element);
+          typingResolvers.delete(element);
+          resolve();
+          return;
+        }
+        element.textContent += fullText.charAt(index);
+        index += 1;
+        const previousChar = fullText.charAt(index - 1);
+        const nextDelay = /[.,!?]/.test(previousChar) ? 14 : 5;
+        const timerId = window.setTimeout(tick, nextDelay);
+        typingTimers.set(element, timerId);
+      };
+      tick();
+    });
 
   const prepareDescriptions = () => {
     document.querySelectorAll(".project-modal-description").forEach((description) => {
@@ -406,13 +417,17 @@
       dialog.classList.add("is-opening");
       window.setTimeout(() => dialog.classList.remove("is-opening"), OPEN_ANIMATION_MS);
     }
-    const descriptions = dialog.querySelectorAll(".project-modal-description");
+    const descriptions = [...dialog.querySelectorAll(".project-modal-description")];
     const terminals = dialog.querySelectorAll("[data-terminal]");
-    window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(async () => {
       descriptions.forEach((description) => {
         reserveDescriptionHeight(description);
-        typeDescription(description);
+        description.textContent = "";
       });
+      for (const description of descriptions) {
+        if (!dialog.open || dialog.classList.contains("is-closing")) break;
+        await typeDescription(description);
+      }
       terminals.forEach((terminal) => startTerminal(terminal));
     });
   };

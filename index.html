@@ -95,14 +95,14 @@
                 <span class="chevron">▾</span><span class="folder-icon">▦</span> projects
               </button>
               <div class="tree-subgroup" data-subfolder-group>
+                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-lift">
+                  <span class="file-icon icon-tsx">TSX</span> lift-app.tsx
+                </button>
                 <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-student-flow">
                   <span class="file-icon icon-sql">DB</span> student-flow.sql
                 </button>
                 <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-cfc-ai">
                   <span class="file-icon icon-py">PY</span> cfc-assistant.py
-                </button>
-                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-deadfront">
-                  <span class="file-icon icon-cs">C#</span> deadfront.cs
                 </button>
               </div>
               <button class="tree-item" type="button" data-nav="skills">
@@ -189,6 +189,18 @@
                 <h2 class="section-heading"><span class="kw-comment">// </span>Selected Projects</h2>
                 <div class="grid projects">
                   <article class="card project-card reveal">
+                    <span class="project-ext">.tsx</span>
+                    <h3>Lift: A Social Fitness App</h3>
+                    <span class="tag-row">
+                      <span class="tag">React</span>
+                      <span class="tag">Supabase</span>
+                      <span class="tag">PWA</span>
+                    </span>
+                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-lift">
+                      View details
+                    </button>
+                  </article>
+                  <article class="card project-card reveal">
                     <span class="project-ext">.sql</span>
                     <h3>Student Flow Visualization Tool</h3>
                     <span class="tag-row">
@@ -213,20 +225,54 @@
                       View details
                     </button>
                   </article>
-                  <article class="card project-card reveal">
-                    <span class="project-ext">.cs</span>
-                    <h3>DEADFRONT Game</h3>
-                    <span class="tag-row">
-                      <span class="tag">Unity</span>
-                      <span class="tag">C#</span>
-                      <span class="tag">OOP</span>
-                      <span class="tag">3D Environment</span>
-                    </span>
-                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-deadfront">
-                      View details
-                    </button>
-                  </article>
                 </div>
+
+                <dialog class="project-modal has-shots" id="project-modal-lift" aria-labelledby="project-modal-lift-title">
+                  <div class="project-modal-inner">
+                    <div class="project-modal-head">
+                      <p class="project-modal-label">Project Details</p>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <h3 id="project-modal-lift-title">Lift: A Social Fitness App</h3>
+                    <p class="project-modal-date">Summer 2026</p>
+                    <div class="tag-row">
+                      <span class="tag">React</span>
+                      <span class="tag">Supabase</span>
+                      <span class="tag">PWA</span>
+                      <span class="tag">TypeScript</span>
+                      <span class="tag">Mobile-First</span>
+                    </div>
+                    <div class="project-shots" aria-label="Lift app screenshots">
+                      <img src="far_left.PNG" alt="Lift profile screen with friends and Spotify track sharing" />
+                      <img src="middle_left.PNG" alt="Lift home dashboard with streak, workouts, and volume stats" />
+                      <img src="middle_right.PNG" alt="Lift active workout logging with last-session placeholders" />
+                      <img src="far_right.PNG" alt="Lift PR leaderboard ranking top exercises" />
+                    </div>
+                    <p class="project-modal-description">
+                      Lift is a personal passion project, a mobile-first social-fitness app made for tracking all kinds of
+                      exercises while staying connected to workout partners. Users log sessions from ~100 built-in or
+                      custom exercises using reusable templates, with carry-forward notes and last-session placeholders
+                      speeding up logging. Logged workouts then build up a progress section where users can enjoy fun and
+                      unique statistics about their workout journey.
+                    </p>
+                    <p class="project-modal-description">
+                      A friends system enables custom exercise/template
+                      sharing, personal milestone/achievement posts and live PR leaderboards that rank lifts against
+                      friends per exercise. A Spotify-powered song sharing feature lets friends see and emoji-react to
+                      each other's workout soundtracks, surfaced through a notification center with web push alerts.
+                      Profiles also include milestone badges, customizable colors, and profile photos.
+                    </p>
+                    <p class="project-modal-description">
+                      Stats dashboards visualize cumulative volume and weekly trends via Recharts. Built with React 19,
+                      TypeScript, and Tailwind CSS, backed by Supabase for authentication, Postgres storage, Row-Level
+                      Security, and Edge Functions, all packaged as an installable, offline-capable PWA.
+                    </p>
+                    <div class="project-actions">
+                      <a class="button secondary project-button" href="https://lift.gaudian.dev" target="_blank" rel="noopener">Open the live app</a>
+                      <a class="button secondary project-button" href="https://github.com/camgaudian/lift.github.io" target="_blank" rel="noopener">Visit the GitHub repo</a>
+                    </div>
+                  </div>
+                </dialog>
 
                 <dialog class="project-modal" id="project-modal-student-flow" aria-labelledby="project-modal-student-flow-title">
                   <div class="project-modal-inner">
@@ -279,31 +325,6 @@
                     </div>
                   </div>
                 </dialog>
-
-                <dialog class="project-modal" id="project-modal-deadfront" aria-labelledby="project-modal-deadfront-title">
-                  <div class="project-modal-inner">
-                    <div class="project-modal-head">
-                      <p class="project-modal-label">Project Details</p>
-                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
-                    </div>
-                    <h3 id="project-modal-deadfront-title">DEADFRONT Game</h3>
-                    <p class="project-modal-date">Fall 2024</p>
-                    <div class="tag-row">
-                      <span class="tag">Unity</span>
-                      <span class="tag">C#</span>
-                      <span class="tag">OOP</span>
-                      <span class="tag">3D Environment</span>
-                    </div>
-                    <p class="project-modal-description">
-                      A 3D FPS zombie wave survival game built in Unity using C#. Main features include full weapon
-                      systems, player health systems, enemy AI, and wave progression. Additional interface elements
-                      include a HUD, status displays (like ammo/health), and feedback such as audio and visual cues.
-                    </p>
-                    <div class="project-actions">
-                      <a class="button secondary project-button" href="https://youtu.be/xAcbX7r1f_s" target="_blank" rel="noopener">Watch the game trailer</a>
-                    </div>
-                  </div>
-                </dialog>
               </section>
 
               <!-- skills.txt -->
@@ -344,7 +365,7 @@
 
               <footer class="footer">
                 <span><span class="tok-comment">//</span> Based in Mankato, MN.</span>
-                <span>Last updated Jun 2, 2026.</span>
+                <span>Last updated July 20, 2026.</span>
               </footer>
               </div>
             </div>

@@ -1133,11 +1133,50 @@ kbd {
   padding: 0 24px;
 }
 
+.project-modal.has-shots {
+  width: min(920px, calc(100% - 32px));
+}
+
+.project-shots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 16px 0 -44px;
+  padding: 0 16px;
+}
+
+.project-shots img {
+  display: block;
+  width: 24%;
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.project-shots img:nth-child(2),
+.project-shots img:nth-child(3) {
+  transform: translateY(-10px);
+}
+
+.project-shots img:first-child {
+  width: 21%;
+  transform: translate(2px, -22px);
+}
+
+.project-shots img:last-child {
+  width: 22.25%;
+  transform: translate(-7px, -22px);
+}
+
 .project-modal .project-modal-description {
   margin: 16px 0 0;
   padding: 0 24px;
   color: var(--text-dim);
   line-height: 1.75;
+}
+
+.project-modal .project-modal-description + .project-modal-description {
+  margin-top: 14px;
 }
 
 .project-modal .project-actions {
@@ -1691,6 +1730,18 @@ kbd {
 }
 
 @media (max-width: 520px) {
+  .project-shots {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .project-shots img,
+  .project-shots img:first-child,
+  .project-shots img:last-child {
+    width: calc(50% - 8px);
+    transform: none;
+  }
+
   .code-block {
     font-size: 11.5px;
   }

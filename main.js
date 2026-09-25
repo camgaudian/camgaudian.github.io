@@ -98,19 +98,85 @@
   }
 
   /* =========================================================
-   * Hero code line reveal
+   * Experience details expand / collapse
    * =======================================================*/
-  const heroCode = document.querySelector("[data-hero-code]");
-  if (heroCode) {
-    if (prefersReducedMotion.matches) {
-      heroCode.removeAttribute("data-typed");
-    } else {
-      heroCode.setAttribute("data-typed", "");
-      const rows = Array.from(heroCode.querySelectorAll(".ln-row"));
-      rows.forEach((row, i) => {
-        row.style.animationDelay = `${0.12 + i * 0.09}s`;
-      });
-    }
+  document.querySelectorAll(".experience-details").forEach((details) => {
+    const summary = details.querySelector("summary");
+    if (!summary) return;
+    let animation = null;
+
+    summary.addEventListener("click", (e) => {
+      if (prefersReducedMotion.matches) return;
+      e.preventDefault();
+
+      const closing = details.open && !details.classList.contains("is-closing");
+      const startHeight = details.offsetHeight;
+
+      if (animation) animation.cancel();
+      details.style.overflow = "hidden";
+
+      let endHeight;
+      if (closing) {
+        details.classList.add("is-closing");
+        details.open = false;
+        endHeight = details.offsetHeight;
+        details.open = true;
+      } else {
+        details.classList.remove("is-closing");
+        details.open = true;
+        endHeight = details.offsetHeight;
+      }
+
+      animation = details.animate(
+        { height: [`${startHeight}px`, `${endHeight}px`] },
+        { duration: 300, easing: "cubic-bezier(0.22, 0.9, 0.35, 1)" }
+      );
+
+      animation.onfinish = () => {
+        if (closing) details.open = false;
+        details.classList.remove("is-closing");
+        details.style.overflow = "";
+        animation = null;
+      };
+    });
+  });
+
+  /* =========================================================
+   * Skill rows: horizontal scroll with edge fades
+   * =======================================================*/
+  const skillRows = Array.from(document.querySelectorAll(".skill-row .tag-row"));
+
+  const updateSkillFade = (row) => {
+    const max = row.scrollWidth - row.clientWidth;
+    row.classList.toggle("fade-start", row.scrollLeft > 1);
+    row.classList.toggle("fade-end", row.scrollLeft < max - 1);
+  };
+
+  skillRows.forEach((row) => {
+    row.addEventListener("scroll", () => updateSkillFade(row), { passive: true });
+
+    // Map vertical wheel to horizontal only while the row can still move that way,
+    // so page scrolling resumes once the row hits either end.
+    row.addEventListener(
+      "wheel",
+      (e) => {
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+        const max = row.scrollWidth - row.clientWidth;
+        if (max <= 0) return;
+        const canMove = e.deltaY > 0 ? row.scrollLeft < max - 1 : row.scrollLeft > 1;
+        if (!canMove) return;
+        e.preventDefault();
+        row.scrollLeft += e.deltaY;
+      },
+      { passive: false }
+    );
+
+    updateSkillFade(row);
+  });
+
+  if ("ResizeObserver" in window) {
+    const skillResize = new ResizeObserver((entries) => entries.forEach((entry) => updateSkillFade(entry.target)));
+    skillRows.forEach((row) => skillResize.observe(row));
   }
 
   /* =========================================================
@@ -207,118 +273,6 @@
   }
 
   /* =========================================================
-   * About terminal (streamed typing)
-   * =======================================================*/
-  const ABOUT_LINES = [
-    { kind: "cmd", text: "whoami" },
-    { kind: "out", text: "Cameron Gaudian — Computer Science student @ MNSU, Mankato" },
-    { kind: "gap" },
-    { kind: "cmd", text: "cat about.md" },
-    { kind: "out", text: "I turn big goals into daily progress." },
-    {
-      kind: "out",
-      text: "Across school, work, fitness, and personal projects, I care a lot about consistency and steady effort.",
-    },
-    {
-      kind: "out",
-      text: "I'm easy to work with, always open to learning, and motivated by building things that are genuinely useful.",
-    },
-    { kind: "gap" },
-    { kind: "cmd", text: "echo $STATUS" },
-    { kind: "out", text: "● Available for new opportunities", cls: "term-ok" },
-  ];
-
-  const terminalTimers = new WeakMap();
-
-  const buildTerminalLine = (line, text) => {
-    const el = document.createElement("div");
-    el.className = "term-line";
-    if (line.kind === "gap") {
-      el.classList.add("term-gap");
-      return el;
-    }
-    if (line.kind === "cmd") {
-      el.classList.add("term-cmd");
-      const prompt = document.createElement("span");
-      prompt.className = "term-prompt";
-      prompt.textContent = "$";
-      const span = document.createElement("span");
-      span.className = "term-text";
-      span.textContent = text;
-      el.append(prompt, document.createTextNode(" "), span);
-    } else {
-      el.classList.add("term-out");
-      if (line.cls) el.classList.add(line.cls);
-      el.textContent = text;
-    }
-    return el;
-  };
-
-  const stopTerminal = (root) => {
-    const id = terminalTimers.get(root);
-    if (id) {
-      window.clearTimeout(id);
-      terminalTimers.delete(root);
-    }
-  };
-
-  const startTerminal = (root) => {
-    stopTerminal(root);
-    if (prefersReducedMotion.matches) {
-      root.replaceChildren();
-      ABOUT_LINES.forEach((line) => root.appendChild(buildTerminalLine(line, line.text || "")));
-      return;
-    }
-
-    root.replaceChildren();
-    let lineIndex = 0;
-    let charIndex = 0;
-    let current = null;
-    let textTarget = null;
-
-    const tick = () => {
-      if (lineIndex >= ABOUT_LINES.length) {
-        terminalTimers.delete(root);
-        return;
-      }
-      const line = ABOUT_LINES[lineIndex];
-
-      if (!current) {
-        current = buildTerminalLine(line, "");
-        root.appendChild(current);
-        root.scrollTop = root.scrollHeight;
-        if (line.kind === "gap") {
-          lineIndex += 1;
-          current = null;
-          terminalTimers.set(root, window.setTimeout(tick, 70));
-          return;
-        }
-        textTarget = line.kind === "cmd" ? current.querySelector(".term-text") : current;
-        charIndex = 0;
-        current.classList.add("is-typing");
-      }
-
-      const full = line.text || "";
-      if (charIndex < full.length) {
-        textTarget.textContent += full.charAt(charIndex);
-        charIndex += 1;
-        const ch = full.charAt(charIndex - 1);
-        const delay = line.kind === "cmd" ? 26 : /[.,!?·—]/.test(ch) ? 18 : 8;
-        root.scrollTop = root.scrollHeight;
-        terminalTimers.set(root, window.setTimeout(tick, delay));
-      } else {
-        current.classList.remove("is-typing");
-        lineIndex += 1;
-        current = null;
-        textTarget = null;
-        terminalTimers.set(root, window.setTimeout(tick, line.kind === "cmd" ? 180 : 90));
-      }
-    };
-
-    tick();
-  };
-
-  /* =========================================================
    * Modals (open/close + typing description)
    * =======================================================*/
   const stopTyping = (element) => {
@@ -396,7 +350,6 @@
       stopTyping(description);
       description.textContent = description.dataset.fullText || description.textContent;
     });
-    dialog.querySelectorAll("[data-terminal]").forEach((terminal) => stopTerminal(terminal));
     if (prefersReducedMotion.matches) {
       dialog.classList.remove("is-opening", "is-closing");
       dialog.close();
@@ -423,7 +376,6 @@
       if (reset) reset();
     });
     const descriptions = [...dialog.querySelectorAll(".project-modal-description")];
-    const terminals = dialog.querySelectorAll("[data-terminal]");
     window.requestAnimationFrame(async () => {
       descriptions.forEach((description) => {
         reserveDescriptionHeight(description);
@@ -433,7 +385,6 @@
         if (!dialog.open || dialog.classList.contains("is-closing")) break;
         await typeDescription(description);
       }
-      terminals.forEach((terminal) => startTerminal(terminal));
     });
   };
 
@@ -476,7 +427,7 @@
     });
   });
 
-  document.querySelectorAll(".project-modal, .terminal-modal").forEach((dialog) => {
+  document.querySelectorAll(".project-modal").forEach((dialog) => {
     dialog.addEventListener("click", (event) => {
       const rect = dialog.getBoundingClientRect();
       const inside =
@@ -721,7 +672,6 @@
     });
     win.hidden = false;
     positionWindowDefault(win);
-    win.querySelectorAll("[data-terminal]").forEach((terminal) => startTerminal(terminal));
     win.querySelectorAll("[data-contact-terminal]").forEach((terminal) => startContactTerminal(terminal));
     const closeBtn = win.querySelector("[data-window-close]");
     if (closeBtn) closeBtn.focus({ preventScroll: true });
@@ -730,7 +680,6 @@
   const closeWindow = (win) => {
     if (!win || win.hidden) return;
     win.hidden = true;
-    win.querySelectorAll("[data-terminal]").forEach((terminal) => stopTerminal(terminal));
     win.querySelectorAll("[data-contact-terminal]").forEach((terminal) => stopContactTerminal(terminal));
   };
 
@@ -811,6 +760,18 @@
       label: "Open resume",
       hint: "view",
       run: () => openDialog(document.getElementById("resume-modal")),
+    },
+    {
+      icon: "▦",
+      label: "Browse industry projects",
+      hint: "~/projects/industry",
+      run: () => openDialog(document.getElementById("projects-browser-industry")),
+    },
+    {
+      icon: "▦",
+      label: "Browse personal projects",
+      hint: "~/projects/personal",
+      run: () => openDialog(document.getElementById("projects-browser-personal")),
     },
     {
       icon: "@",

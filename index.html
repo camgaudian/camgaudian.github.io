@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -89,20 +89,29 @@
                 <span class="file-icon icon-ts">TS</span> welcome.ts
               </button>
               <button class="tree-item" type="button" data-nav="experience">
-                <span class="file-icon icon-json">{}</span> experience.json
+                <span class="file-icon icon-json">EXP</span> experience.json
               </button>
               <button class="tree-item tree-folder" type="button" data-subfolder-toggle data-nav-section="projects" aria-expanded="true">
-                <span class="chevron">▾</span><span class="folder-icon">▦</span> projects
+                <span class="chevron">▾</span><span class="dir-icon dir-icon-projects">PRJ</span> projects
               </button>
               <div class="tree-subgroup" data-subfolder-group>
-                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-lift">
-                  <span class="file-icon icon-tsx">TSX</span> lift-app.tsx
+                <button class="tree-item tree-nested tree-folder" type="button" data-modal-target="projects-browser-industry">
+                  <span class="dir-icon dir-icon-industry">IND</span> industry
                 </button>
-                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-student-flow">
+                <button class="tree-item tree-nested-2" type="button" data-modal-target="project-modal-dentalport">
+                  <span class="file-icon icon-tsx">JSX</span> dentalport.jsx
+                </button>
+                <button class="tree-item tree-nested-2" type="button" data-modal-target="project-modal-student-flow">
                   <span class="file-icon icon-sql">DB</span> student-flow.sql
                 </button>
-                <button class="tree-item tree-nested" type="button" data-modal-target="project-modal-cfc-ai">
+                <button class="tree-item tree-nested-2" type="button" data-modal-target="project-modal-cfc-ai">
                   <span class="file-icon icon-py">PY</span> cfc-assistant.py
+                </button>
+                <button class="tree-item tree-nested tree-folder" type="button" data-modal-target="projects-browser-personal">
+                  <span class="dir-icon dir-icon-personal">PER</span> personal
+                </button>
+                <button class="tree-item tree-nested-2" type="button" data-modal-target="project-modal-lift">
+                  <span class="file-icon icon-tsx">TSX</span> lift-app.tsx
                 </button>
               </div>
               <button class="tree-item" type="button" data-nav="skills">
@@ -123,7 +132,7 @@
         <main class="editor">
           <div class="tabbar" data-tabbar role="tablist" aria-label="Open files">
             <button class="tab" type="button" role="tab" data-tab="home"><span class="file-icon icon-ts">TS</span> welcome.ts</button>
-            <button class="tab" type="button" role="tab" data-tab="experience"><span class="file-icon icon-json">{}</span> experience.json</button>
+            <button class="tab" type="button" role="tab" data-tab="experience"><span class="file-icon icon-json">EXP</span> experience.json</button>
             <button class="tab" type="button" role="tab" data-tab="projects"><span class="file-icon icon-tsx">TSX</span> projects.tsx</button>
             <button class="tab" type="button" role="tab" data-tab="skills"><span class="file-icon icon-txt">TXT</span> skills.txt</button>
             <button class="tab" type="button" role="tab" data-tab="contact"><span class="file-icon icon-sh">SH</span> contact.sh</button>
@@ -139,24 +148,24 @@
                   <div class="hero-photo-wrap reveal">
                     <img
                       class="hero-photo"
-                      src="cam_pic.jpg"
+                      src="assets/img/cam_pic.jpg"
                       alt="Portrait of Cameron Gaudian"
                       onerror="this.classList.add('is-missing')"
                     />
                   </div>
                   <div class="hero-panel reveal">
-                    <p class="hero-kicker"><span class="tok-comment">// CS Portfolio</span></p>
+                    <p class="hero-kicker"><span class="tok-comment">// Cameron Gaudian | CS Portfolio</span></p>
                     <h1 class="hero-title">Building practical software and sharpening core skills</h1>
                     <ul class="hero-specs">
                       <li><span class="spec-key">role</span><span class="spec-val">CS Student &amp; Software Engineer</span></li>
                       <li><span class="spec-key">school</span><span class="spec-val">Minnesota State University, Mankato</span></li>
-                      <li><span class="spec-key">focus</span><span class="spec-val">Java · Azure · SQL · DB design</span></li>
+                      <li><span class="spec-key">focus</span><span class="spec-val">AI · Python · UX · System Design</span></li>
                       <li><span class="spec-key">values</span><span class="spec-val">Consistency · Collaboration</span></li>
                       <li><span class="spec-key">status</span><span class="spec-val spec-status"><span class="status-dot"></span> Available for opportunities</span></li>
                     </ul>
                     <div class="hero-actions">
-                      <button class="button terminal-btn" type="button" data-window-open="about-modal">
-                        <span class="term-icon" aria-hidden="true">&gt;_</span>About me
+                      <button class="button terminal-btn" type="button" data-window-open="message-modal">
+                        <span class="term-icon" aria-hidden="true">&gt;_</span>Send me a message
                       </button>
                       <button class="button primary" type="button" data-nav="projects">See the work</button>
                       <button class="button ghost" type="button" data-modal-target="resume-modal">View my resume</button>
@@ -175,57 +184,181 @@
                   <p class="experience-meta">Apr 2026 - May 2027 <span class="meta-sep">·</span> Mankato, MN</p>
                   <details class="experience-details">
                     <summary>Description</summary>
-                    <p>
-                      Working with Maverick Software Consulting as a Software Engineering Intern in a mentored,
-                      real-world software development environment focused on practical engineering experience,
-                      technical collaboration, and long-term growth.
-                    </p>
+                    <ul class="experience-points">
+                      <li>
+                        Contracted through Maverick Software Consulting, engineering software features and automated test suites for
+                        an enterprise flagship AI product.
+                      </li>
+                      <li>
+                        Collaborated across QA and development teams through an Agile SDLC to ensure quality,
+                        stability, and government compliance.
+                      </li>
+                      <li>
+                        Notable QA achievements include: Reducing average regression suite runtime by
+                        <strong>30%</strong> and a lifetime contribution of <strong>25k+ lines</strong> worth of
+                        improved or expanded test coverage.
+                      </li>
+                    </ul>
                   </details>
                 </article>
               </section>
 
               <!-- projects.tsx -->
               <section class="filesection" id="projects" data-file="projects" data-name="projects.tsx" data-lang="TypeScript JSX">
-                <h2 class="section-heading"><span class="kw-comment">// </span>Selected Projects</h2>
+                <h2 class="section-heading"><span class="kw-comment">// </span>Projects</h2>
                 <div class="grid projects">
-                  <article class="card project-card reveal">
-                    <span class="project-ext">.tsx</span>
-                    <h3>Lift: A Social Fitness App</h3>
-                    <span class="tag-row">
-                      <span class="tag">React</span>
-                      <span class="tag">Supabase</span>
-                      <span class="tag">PWA</span>
-                    </span>
-                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-lift">
-                      View details
+                  <article class="card project-card folder-card reveal">
+                    <span class="project-ext">~/projects/industry/</span>
+                    <h3>Industry Projects</h3>
+                    <ol class="branch" aria-label="Industry projects, oldest first">
+                      <li class="branch-node"><span class="branch-name">cfc-assistant<span class="branch-ext">.py</span></span></li>
+                      <li class="branch-node"><span class="branch-name">student-flow<span class="branch-ext">.sql</span></span></li>
+                      <li class="branch-node is-wip">
+                        <span class="badge-progress">In progress</span>
+                        <span class="branch-name">dentalport<span class="branch-ext">.jsx</span></span>
+                      </li>
+                    </ol>
+                    <button class="button secondary project-open" type="button" data-modal-target="projects-browser-industry">
+                      Browse 3 projects
                     </button>
                   </article>
-                  <article class="card project-card reveal">
-                    <span class="project-ext">.sql</span>
-                    <h3>Student Flow Visualization Tool</h3>
-                    <span class="tag-row">
-                      <span class="tag">Database Design</span>
-                      <span class="tag">Azure</span>
-                      <span class="tag">SQL</span>
-                    </span>
-                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-student-flow">
-                      View details
-                    </button>
-                  </article>
-                  <article class="card project-card reveal">
-                    <span class="project-ext">.py</span>
-                    <h3>CFC AI Support Assistant</h3>
-                    <span class="tag-row">
-                      <span class="tag">AI</span>
-                      <span class="tag">Python</span>
-                      <span class="tag">RAG</span>
-                      <span class="tag">NLP</span>
-                    </span>
-                    <button class="button secondary project-open" type="button" data-modal-target="project-modal-cfc-ai">
-                      View details
+                  <article class="card project-card folder-card folder-personal reveal">
+                    <span class="project-ext">~/projects/personal/</span>
+                    <h3>Personal Projects</h3>
+                    <ol class="branch" aria-label="Personal projects, oldest first">
+                      <li class="branch-node"><span class="branch-name">lift-app<span class="branch-ext">.tsx</span></span></li>
+                      <li class="branch-node"><span class="branch-name branch-ext">more to come...</span></li>
+                    </ol>
+                    <button class="button secondary project-open" type="button" data-modal-target="projects-browser-personal">
+                      Browse 1 project
                     </button>
                   </article>
                 </div>
+
+                <dialog class="project-modal project-browser" id="projects-browser-industry" aria-labelledby="projects-browser-industry-title">
+                  <div class="project-modal-inner">
+                    <div class="browser-head">
+                      <span class="cw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                      <span class="browser-path">cameron@portfolio: ~/projects/industry</span>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <div class="browser-body">
+                      <p class="project-modal-label">Industry Projects</p>
+                      <h3 id="projects-browser-industry-title">For a real client, with a real team.</h3>
+                      <div class="browser-grid">
+                        <article class="card project-card">
+                          <div class="project-card-top">
+                            <p class="project-role">Team &amp; QA Lead</p>
+                            <span class="project-ext">.jsx</span>
+                          </div>
+                          <h3>DentalPort <span class="badge-progress"><span class="status-dot"></span>In progress</span></h3>
+                          <span class="tag-row">
+                            <span class="tag">React</span>
+                            <span class="tag">Django</span>
+                            <span class="tag">PostgreSQL</span>
+                            <span class="tag">AI</span>
+                          </span>
+                          <button class="button secondary project-open" type="button" data-modal-target="project-modal-dentalport">View details</button>
+                        </article>
+                        <article class="card project-card">
+                          <div class="project-card-top">
+                            <p class="project-role">Data Modeling Manager</p>
+                            <span class="project-ext">.sql</span>
+                          </div>
+                          <h3>Student Flow Visualization Tool</h3>
+                          <span class="tag-row">
+                            <span class="tag">Azure SQL</span>
+                            <span class="tag">Data Pipelines</span>
+                            <span class="tag">Sankey</span>
+                          </span>
+                          <button class="button secondary project-open" type="button" data-modal-target="project-modal-student-flow">View details</button>
+                        </article>
+                        <article class="card project-card">
+                          <div class="project-card-top">
+                            <p class="project-role">UI &amp; BE Support Engineer</p>
+                            <span class="project-ext">.py</span>
+                          </div>
+                          <h3>CFC AI Support Assistant</h3>
+                          <span class="tag-row">
+                            <span class="tag">AI</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag">NLP</span>
+                          </span>
+                          <button class="button secondary project-open" type="button" data-modal-target="project-modal-cfc-ai">View details</button>
+                        </article>
+                        <div class="project-card-placeholder" aria-hidden="true">
+                          <span class="tok-comment">// more to come...</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dialog>
+
+                <dialog class="project-modal project-browser" id="projects-browser-personal" aria-labelledby="projects-browser-personal-title">
+                  <div class="project-modal-inner">
+                    <div class="browser-head">
+                      <span class="cw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                      <span class="browser-path">cameron@portfolio: ~/projects/personal</span>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <div class="browser-body">
+                      <p class="project-modal-label">Personal Projects</p>
+                      <h3 id="projects-browser-personal-title">In my own time, out of passion.</h3>
+                      <div class="browser-grid">
+                        <article class="card project-card">
+                          <div class="project-card-top">
+                            <p class="project-role">Full-Stack Developer</p>
+                            <span class="project-ext">.tsx</span>
+                          </div>
+                          <h3>Lift: A Social Fitness App</h3>
+                          <span class="tag-row">
+                            <span class="tag">React</span>
+                            <span class="tag">Supabase</span>
+                            <span class="tag">PWA</span>
+                          </span>
+                          <button class="button secondary project-open" type="button" data-modal-target="project-modal-lift">View details</button>
+                        </article>
+                        <div class="project-card-placeholder" aria-hidden="true">
+                          <span class="tok-comment">// more to come...</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </dialog>
+
+                <dialog class="project-modal" id="project-modal-dentalport" aria-labelledby="project-modal-dentalport-title">
+                  <div class="project-modal-inner">
+                    <div class="project-modal-head">
+                      <p class="project-modal-label">Project Details</p>
+                      <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
+                    </div>
+                    <h3 id="project-modal-dentalport-title">DentalPort</h3>
+                    <p class="project-modal-date">
+                      Team &amp; QA Lead <span class="meta-sep">·</span> Aug – Dec 2026
+                      <span class="badge-progress"><span class="status-dot"></span>In progress</span>
+                    </p>
+                    <div class="tag-row">
+                      <span class="tag">React</span>
+                      <span class="tag">Django</span>
+                      <span class="tag">PostgreSQL</span>
+                      <span class="tag">AI</span>
+                      <span class="tag">HIPAA-Aware</span>
+                      <span class="tag">QA</span>
+                    </div>
+                    <p class="project-modal-description">
+                      A full-stack platform giving dentists a secure, centralized home for clinical portfolios and
+                      professional networking. Built with React, Django, and PostgreSQL, it supports customizable
+                      portfolios, image and video uploads, and continuing-education content on a scalable, HIPAA-aware
+                      data model. AI features include assisted portfolio design and on-device redaction of sensitive
+                      patient imagery before cloud upload. As Team &amp; QA Lead, I direct unit and integration testing,
+                      profile backend API performance, and lead code reviews toward a client-ready MVP.
+                    </p>
+                    <div class="project-actions">
+                      <p class="project-modal-note">Public artifacts will be shared once the project wraps in December 2026.</p>
+                    </div>
+                  </div>
+                </dialog>
 
                 <dialog class="project-modal has-shots" id="project-modal-lift" aria-labelledby="project-modal-lift-title">
                   <div class="project-modal-inner">
@@ -244,10 +377,10 @@
                     </div>
                     <div class="project-shots-gallery" data-shots-gallery>
                       <div class="project-shots" aria-label="Lift app screenshots">
-                        <img src="far_left.PNG" alt="Lift profile screen with friends and Spotify track sharing" />
-                        <img src="middle_left.PNG" alt="Lift home dashboard with streak, workouts, and volume stats" />
-                        <img src="middle_right.PNG" alt="Lift active workout logging with last-session placeholders" />
-                        <img src="far_right.PNG" alt="Lift PR leaderboard ranking top exercises" />
+                        <img src="assets/img/far_left.png" alt="Lift profile screen with friends and Spotify track sharing" loading="lazy" />
+                        <img src="assets/img/middle_left.png" alt="Lift home dashboard with streak, workouts, and volume stats" loading="lazy" />
+                        <img src="assets/img/middle_right.png" alt="Lift active workout logging with last-session placeholders" loading="lazy" />
+                        <img src="assets/img/far_right.png" alt="Lift PR leaderboard ranking top exercises" loading="lazy" />
                       </div>
                       <div class="project-shots-nav">
                         <button class="button secondary project-shots-btn" type="button" data-shots-prev aria-label="Previous screenshot">‹</button>
@@ -288,19 +421,19 @@
                       <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
                     </div>
                     <h3 id="project-modal-student-flow-title">Student Flow Visualization Tool</h3>
-                    <p class="project-modal-date">Spring 2026</p>
+                    <p class="project-modal-date">Data Modeling Manager <span class="meta-sep">·</span> Jan – May 2026</p>
                     <div class="tag-row">
                       <span class="tag">Database Design</span>
-                      <span class="tag">Azure</span>
-                      <span class="tag">SQL</span>
+                      <span class="tag">Azure SQL</span>
+                      <span class="tag">Data Pipelines</span>
+                      <span class="tag">Sankey</span>
                     </div>
                     <p class="project-modal-description">
-                      A data visualization system for analyzing and modeling student enrollment, transfer, and
-                      graduation pathways at MNSU. It aggregates multi-source institutional data, designs a scalable
-                      relational model, and builds structured pipelines for Sankey visualizations that show how
-                      students move through and beyond the university. The system helps administrators understand
-                      student origins, academic progression, transfer behavior, and degree outcomes through clean,
-                      queryable, and well-structured data.
+                      A data visualization system for modeling student enrollment, transfer, and graduation pathways
+                      at MNSU. I designed an Azure SQL relational database to hold sensitive student data under strict
+                      NDA requirements, with pipelines that clean and unify multi-source institutional records. That
+                      data powers interactive Sankey visualizations showing how students move through and beyond the
+                      university, helping administrators understand origins, progression, transfers, and degree outcomes.
                     </p>
                     <div class="project-actions">
                       <p class="project-modal-note">Public artifacts are unavailable for this project due to NDA restrictions.</p>
@@ -315,7 +448,7 @@
                       <button class="button secondary project-modal-close" type="button" data-close-modal>Close</button>
                     </div>
                     <h3 id="project-modal-cfc-ai-title">CFC AI Support Assistant</h3>
-                    <p class="project-modal-date">Fall 2025</p>
+                    <p class="project-modal-date">UI &amp; BE Support Engineer <span class="meta-sep">·</span> Aug – Dec 2025</p>
                     <div class="tag-row">
                       <span class="tag">AI</span>
                       <span class="tag">Python</span>
@@ -323,8 +456,8 @@
                       <span class="tag">NLP</span>
                     </div>
                     <p class="project-modal-description">
-                      An AI chatbot leveraging Retrieval-Augmented Generation to answer customer questions based on
-                      CFC Technologies' internal help documentation, improving the overall customer support experience.
+                      An AI chatbot using Retrieval-Augmented Generation to answer customer questions from 150+ CFC
+                      Technologies help resources, with an API layer linking the chat UI to AI retrieval.
                     </p>
                     <div class="project-actions">
                       <a class="button secondary project-button" href="https://youtu.be/vnwzOvCkCeY" target="_blank" rel="noopener">Watch a quick demo</a>
@@ -337,19 +470,50 @@
               <!-- skills.txt -->
               <section class="filesection" id="skills" data-file="skills" data-name="skills.txt" data-lang="Plain Text">
                 <h2 class="section-heading"><span class="kw-comment">// </span>Skills &amp; Focus</h2>
-                <div class="grid timeline">
-                  <div class="card reveal">
-                    <h3>Languages</h3>
-                    <p>Python &amp; C# proficiency; have experience with SQL, HTML/CSS, Java/JavaScript, and more.</p>
+                <div class="skills-panel reveal">
+                  <div class="skill-row">
+                    <span class="skill-label">languages</span>
+                    <div class="tag-row">
+                      <span class="tag">Python</span>
+                      <span class="tag">TypeScript</span>
+                      <span class="tag">SQL</span>
+                      <span class="tag">Java</span>
+                      <span class="tag">C#</span>
+                      <span class="tag">JavaScript</span>
+                      <span class="tag">HTML/CSS</span>
+                    </div>
                   </div>
-                  <div class="card reveal">
-                    <h3>Tools</h3>
-                    <p>Git/GitHub, VS Code, TestNG, AWS, Azure; currently learning React, command line, and more.</p>
+                  <div class="skill-row">
+                    <span class="skill-label">frameworks</span>
+                    <div class="tag-row">
+                      <span class="tag">React</span>
+                      <span class="tag">Git</span>
+                      <span class="tag">Django</span>
+                      <span class="tag">TestNG</span>
+                      <span class="tag">Tailwind</span>
+                      <span class="tag">PWA</span>
+                    </div>
                   </div>
-                  <div class="card reveal">
-                    <h3>Core Concepts</h3>
-                    <p>OS, algorithms, data structures, and more; currently studying data mining
-                      &amp; information security.</p>
+                  <div class="skill-row">
+                    <span class="skill-label">data &amp; cloud</span>
+                    <div class="tag-row">
+                      <span class="tag">AWS</span>
+                      <span class="tag">PostgreSQL</span>
+                      <span class="tag">Azure</span>
+                      <span class="tag">Pinecone</span>
+                      <span class="tag">Supabase</span>
+                    </div>
+                  </div>
+                  <div class="skill-row">
+                    <span class="skill-label">concepts</span>
+                    <div class="tag-row">
+                      <span class="tag">RAG / AI</span>
+                      <span class="tag">Testing</span>
+                      <span class="tag">DB Design</span>
+                      <span class="tag">Security</span>
+                      <span class="tag">DSA</span>
+                      <span class="tag">Agile</span>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -372,7 +536,7 @@
 
               <footer class="footer">
                 <span><span class="tok-comment">//</span> Based in Mankato, MN.</span>
-                <span>Last updated July 20, 2026.</span>
+                <span>Last updated Sep 24, 2026.</span>
               </footer>
               </div>
             </div>
@@ -403,18 +567,6 @@
       </footer>
     </div>
 
-    <!-- About terminal window (draggable, non-modal) -->
-    <div class="float-window" id="about-modal" role="dialog" aria-label="About Cameron Gaudian" hidden>
-      <div class="terminal-window">
-        <div class="terminal-head" data-window-drag>
-          <span class="cw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="terminal-title">cameron@portfolio: ~/about</span>
-          <button class="terminal-close" type="button" data-window-close aria-label="Close about window">✕</button>
-        </div>
-        <div class="terminal-body" data-terminal></div>
-      </div>
-    </div>
-
     <!-- Message terminal window (draggable, non-modal) -->
     <div class="float-window" id="message-modal" role="dialog" aria-label="Send Cameron a message" hidden>
       <div class="terminal-window">
@@ -439,14 +591,14 @@
         <div class="resume-frame-wrap">
           <iframe
             class="resume-frame"
-            src="Resume042226.pdf#view=FitH"
+            src="assets/resume.pdf#view=FitH"
             title="Cameron Gaudian resume PDF preview"
             loading="lazy"
           ></iframe>
         </div>
         <div class="project-actions">
-          <a class="button secondary project-button" href="Resume042226.pdf" download>Download resume</a>
-          <a class="button secondary project-button" href="Resume042226.pdf" target="_blank" rel="noopener">Open in new tab</a>
+          <a class="button secondary project-button" href="assets/resume.pdf" download>Download resume</a>
+          <a class="button secondary project-button" href="assets/resume.pdf" target="_blank" rel="noopener">Open in new tab</a>
         </div>
       </div>
     </dialog>
